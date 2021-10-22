@@ -1,0 +1,12 @@
+{
+    "name": "WebpayPlus module",
+    "image": "images/logo.jpg",
+    "auth": "Your name",
+    "email": "your-email",
+    "link": "http://Your-link.com",
+    "configGroup": "Plugins",
+    "configCode": "Payment",
+    "configKey": "WebpayPlus",
+    "version": "1.0",
+    "scartVersion": []
+}
