@@ -1,7 +1,30 @@
 <?php
 return [
-    'title'      => 'WebpayPlus',
-    'admin'      => [
-        'title'          => 'WebpayPlus',
+    'title' => 'WebpayPlus',
+    'webpay_plus_commerce_code' => 'Commerce code',
+    'webpay_plus_api_key' => 'API Key (production secret key)',
+    'webpay_plus_order_status_success' => 'Order success',
+    'webpay_plus_order_status_failed' => 'Order failed',
+    'webpay_plus_payment_status' => 'Payment status',
+    'webpay_plus_environment' => 'Environment',
+    'webpay_plus_integration_mode' => 'Integration',
+    'webpay_plus_production_mode' => 'Production',
+    'webpay_plus_payment_timeout' => 'Time expired for payment, no charge was made',
+    'webpay_plus_payment_aborted' => 'Payment aborted',
+    'webpay_plus_payment_error' => 'Error when making the payment, no charge was made',
+    'webpay_plus_payment_rejected' => 'Payment rejected, try another payment method, no charge was made',
+    'webpay_plus_last4digits' => 'Last 4 digits',
+    'webpay_plus_accounting_date' => 'Accounting date',
+    'webpay_plus_transaction_date' => 'Transaction date',
+    'webpay_plus_authorization_code' => 'Authorization code',
+    'webpay_plus_payment_type' => 'Payment type',
+    'webpay_plus_installments_number' => 'Installments number',
+    'webpay_plus_installments_amount' => 'Installments amount',
+    'webpay_plus_credit' => 'Credit card',
+    'webpay_plus_debit' => 'Debit card',
+    'webpay_plus_prepaid' => 'Prepaid card',
+    'webpay_plus_paid_with' => 'Paid with ',
+    'admin' => [
+        'title' => 'WebpayPlus',
     ],
 ];
