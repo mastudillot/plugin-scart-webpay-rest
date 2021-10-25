@@ -8,8 +8,15 @@ namespace App\Plugins\Payment\WebpayPlus;
 use App\Plugins\Payment\WebpayPlus\Models\PluginModel;
 use SCart\Core\Admin\Models\AdminConfig;
 use App\Plugins\ConfigDefault;
+use SCart\Core\Front\Models\ShopOrderStatus;
+use SCart\Core\Front\Models\ShopPaymentStatus;
+
 class AppConfig extends ConfigDefault
 {
+    const ORDER_STATUS_PROCESSING = 2; // Processing
+    const ORDER_STATUS_FAILD = 6; // Failed
+    const PAYMENT_STATUS = 3; // Paid
+
     public function __construct()
     {
         //Read config from config.json
@@ -48,6 +55,55 @@ class AppConfig extends ConfigDefault
                     'sort'   => 0,
                     'value'  => self::ON, //Enable extension
                     'detail' => $this->pathPlugin.'::lang.title',
+                ],
+                [
+                    'group' => '',
+                    'code' => $this->configKey.'_config',
+                    'key' => $this->configKey.'_commerce_code',
+                    'sort' => 0, // Sort extensions in group
+                    'value' => '',
+                    'detail' => $this->pathPlugin.'::lang.webpay_plus_commerce_code',
+                ],
+                [
+                    'group' => '',
+                    'code' => $this->configKey.'_config',
+                    'key' => $this->configKey.'_api_key',
+                    'sort' => 0, // Sort extensions in group
+                    'value' => '',
+                    'detail' => $this->pathPlugin.'::lang.webpay_plus_api_key',
+                ],
+                [
+                    'group' => '',
+                    'code' => $this->configKey.'_config',
+                    'key' => $this->configKey.'_environment',
+                    'sort' => 0, // Sort extensions in group
+                    'value' => 'integration',
+                    'detail' => $this->pathPlugin.'::'. $this->configKey . '.webpay_plus_environment',
+                ],
+                // Payment status
+                [
+                    'group' => '',
+                    'code' => $this->configKey.'_config',
+                    'key' => $this->configKey.'_order_status_success',
+                    'sort' => 0, // Sort extensions in group
+                    'value' => self::ORDER_STATUS_PROCESSING,
+                    'detail' => $this->pathPlugin.'::lang.webpay_plus_order_status_success',
+                ],
+                [
+                    'group' => '',
+                    'code' => $this->configKey.'_config',
+                    'key' => $this->configKey.'_order_status_failed',
+                    'sort' => 0, // Sort extensions in group
+                    'value' => self::ORDER_STATUS_FAILD,
+                    'detail' => $this->pathPlugin.'::lang.webpay_plus_order_status_failed',
+                ],
+                [
+                    'group' => '',
+                    'code' => $this->configKey.'_config',
+                    'key' => $this->configKey.'_payment_status',
+                    'sort' => 0, // Sort extensions in group
+                    'value' => self::PAYMENT_STATUS,
+                    'detail' => $this->pathPlugin.'::lang.webpay_plus_payment_status',
                 ],
             ];
             $process = AdminConfig::insert(
@@ -126,8 +182,19 @@ class AppConfig extends ConfigDefault
 
     public function config()
     {
-        //redirect to url config of plugin
-        return;
+        $breadcrumb['url'] = sc_route_admin('admin_plugin', ['code' => $this->configCode]);
+        $breadcrumb['name'] = sc_language_render('admin.plugin.' . $this->configCode.'_plugin');
+        return view($this->pathPlugin . '::Admin')->with(
+            [
+                'pathPlugin' => $this->pathPlugin,
+                'code' => $this->configCode,
+                'key' => $this->configKey,
+                'title' => $this->title,
+                'breadcrumb' => $breadcrumb,
+                'jsonStatusOrder' => json_encode(ShopOrderStatus::getIdAll()),
+                'jsonPaymentStatus' => json_encode(ShopPaymentStatus::getIdAll()),
+            ]
+        );
     }
 
     public function getData()
