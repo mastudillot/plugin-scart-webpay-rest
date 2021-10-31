@@ -8,8 +8,6 @@ namespace App\Plugins\Payment\WebpayPlus;
 use App\Plugins\Payment\WebpayPlus\Models\PluginModel;
 use SCart\Core\Admin\Models\AdminConfig;
 use App\Plugins\ConfigDefault;
-use SCart\Core\Front\Models\ShopOrderStatus;
-use SCart\Core\Front\Models\ShopPaymentStatus;
 
 class AppConfig extends ConfigDefault
 {
@@ -62,7 +60,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_commerce_code',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
-                    'detail' => $this->pathPlugin.'::lang.webpay_plus_commerce_code',
+                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_commerce_code',
                 ],
                 [
                     'group' => '',
@@ -70,7 +68,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_api_key',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
-                    'detail' => $this->pathPlugin.'::lang.webpay_plus_api_key',
+                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_api_key',
                 ],
                 [
                     'group' => '',
@@ -87,7 +85,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_order_status_success',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ORDER_STATUS_PROCESSING,
-                    'detail' => $this->pathPlugin.'::lang.webpay_plus_order_status_success',
+                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_order_status_success',
                 ],
                 [
                     'group' => '',
@@ -95,7 +93,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_order_status_failed',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ORDER_STATUS_FAILD,
-                    'detail' => $this->pathPlugin.'::lang.webpay_plus_order_status_failed',
+                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_order_status_failed',
                 ],
                 [
                     'group' => '',
@@ -103,7 +101,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_payment_status',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::PAYMENT_STATUS,
-                    'detail' => $this->pathPlugin.'::lang.webpay_plus_payment_status',
+                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_payment_status',
                 ],
             ];
             $process = AdminConfig::insert(
@@ -182,19 +180,8 @@ class AppConfig extends ConfigDefault
 
     public function config()
     {
-        $breadcrumb['url'] = sc_route_admin('admin_plugin', ['code' => $this->configCode]);
-        $breadcrumb['name'] = sc_language_render('admin.plugin.' . $this->configCode.'_plugin');
-        return view($this->pathPlugin . '::Admin')->with(
-            [
-                'pathPlugin' => $this->pathPlugin,
-                'code' => $this->configCode,
-                'key' => $this->configKey,
-                'title' => $this->title,
-                'breadcrumb' => $breadcrumb,
-                'jsonStatusOrder' => json_encode(ShopOrderStatus::getIdAll()),
-                'jsonPaymentStatus' => json_encode(ShopPaymentStatus::getIdAll()),
-            ]
-        );
+        //redirect to url config of plugin
+        return redirect(sc_route_admin('admin_webpayplus.index'));
     }
 
     public function getData()
