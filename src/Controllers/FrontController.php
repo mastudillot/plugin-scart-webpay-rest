@@ -120,7 +120,7 @@ class FrontController extends RootFrontController
                 $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $tbk_token)->firstOrFail();
                 $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
                 $webpayTransaction->save();
-                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.webpay_plus_payment_timeout')]);
+                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_timeout')]);
             }
             else {
                 /* Pago abortado */
@@ -131,7 +131,7 @@ class FrontController extends RootFrontController
 
                 $webpayTransaction->status = WebpayTransaction::STATUS_ABORTED_BY_USER;
                 $webpayTransaction->save();
-                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.webpay_plus_payment_aborted')]);
+                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_aborted')]);
             }
         }
         else if (!is_null($tbk_token)) {
@@ -145,7 +145,7 @@ class FrontController extends RootFrontController
             $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $token_ws)->firstOrFail();
             $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
             $webpayTransaction->save();
-            return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.webpay_plus_payment_error')]);
+            return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_error')]);
         }
         else {
             /* Flujo finalizado, puede ser aprobado o rechazado */
@@ -173,14 +173,14 @@ class FrontController extends RootFrontController
                 //Add history
                 $dataHistory = [
                     'order_id' => $orderId,
-                    'content' => trans($this->pathPlugin.'::lang.webpay_plus_paid_with').'Webpay Plus',
+                    'content' => trans($this->pathPlugin.'::lang.payment.webpay_plus_paid_with').'Webpay Plus',
                     'order_status_id' => sc_config('WebpayPlus_order_status_success'),
                 ];
                 (new ShopOrder)->addOrderHistory($dataHistory);
                 return (new ShopCartController)->completeOrder();
             }
             else {
-                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.webpay_plus_payment_rejected')]);
+                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_rejected')]);
             }
         }
     }
@@ -188,26 +188,26 @@ class FrontController extends RootFrontController
     private function getHistoryContent($token, $commitResponse) {
         switch ($commitResponse['paymentTypeCode']) {
             case 'VD':
-                $cardType = trans($this->pathPlugin.'::lang.webpay_plus_debit');
+                $cardType = trans($this->pathPlugin.'::lang.payment.webpay_plus_debit');
                 break;
             case 'VP':
-                $cardType = trans($this->pathPlugin.'::lang.webpay_plus_prepaid');
+                $cardType = trans($this->pathPlugin.'::lang.payment.webpay_plus_prepaid');
                 break;      
             default:
-                $cardType = trans($this->pathPlugin.'::lang.webpay_plus_credit');
+                $cardType = trans($this->pathPlugin.'::lang.payment.webpay_plus_credit');
 
                 if($commitResponse['paymentTypeCode'] != 'VN')
-                    $HistoryContentScrap = '<b>'.trans($this->pathPlugin.'::lang.webpay_plus_installments_number').':</b> '.$commitResponse['installmentsNumber'].'<br>'.
-                    '<b>'.trans($this->pathPlugin.'::lang.webpay_plus_installments_amount').':</b> '.$commitResponse['installmentsAmount'].'<br>';
+                    $HistoryContentScrap = '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_installments_number').':</b> '.$commitResponse['installmentsNumber'].'<br>'.
+                    '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_installments_amount').':</b> '.$commitResponse['installmentsAmount'].'<br>';
                 break;
         }
 
         $HistoryContent = '<b>Token:</b> '.$token.'<br>'.
-        '<b>'.trans($this->pathPlugin.'::lang.webpay_plus_payment_type').':</b> '.$cardType.'<br>'.
-        '<b>'.trans($this->pathPlugin.'::lang.webpay_plus_last4digits').':</b> '.$commitResponse['cardNumber'].'<br>'.
+        '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_payment_type').':</b> '.$cardType.'<br>'.
+        '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_last4digits').':</b> '.$commitResponse['cardNumber'].'<br>'.
         // '<b>'.trans($this->pathPlugin.'::lang.webpay_plus_accounting_date').':</b> '.$commitResponse['accountingDate'].'<br>'.
-        '<b>'.trans($this->pathPlugin.'::lang.webpay_plus_transaction_date').':</b> '.$commitResponse['transactionDate'].'<br>'.
-        '<b>'.trans($this->pathPlugin.'::lang.webpay_plus_authorization_code').':</b> '.$commitResponse['authorizationCode'].'<br>';
+        '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_transaction_date').':</b> '.$commitResponse['transactionDate'].'<br>'.
+        '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_authorization_code').':</b> '.$commitResponse['authorizationCode'].'<br>';
 
         if(isset($HistoryContentScrap))
             return $HistoryContent.$HistoryContentScrap;

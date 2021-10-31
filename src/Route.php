@@ -35,5 +35,7 @@ Route::group(
     function () {
         Route::get('/', 'AdminController@index')
         ->name('admin_webpayplus.index');
+        Route::post('/config', 'AdminController@saveConfig')
+        ->name('admin_webpayplus.config.save');
     }
 );
