@@ -14,12 +14,12 @@
         </li>
         <li class="p-3 {{ $view == 'transaction' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'transactions']) }}">
-            Transacciones <i class="icon fas fa-arrow-right"></i>
+            {{ trans($pathPlugin.'::lang.admin.navbar.transactions') }} <i class="icon fas fa-arrow-right"></i>
           </a>
         </li>
         <li class="p-3 {{ $view == 'healthcheck' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'healthcheck']) }}">
-            Diagnóstico <i class="icon fas fa-arrow-right"></i>
+            {{ trans($pathPlugin.'::lang.admin.navbar.healthcheck') }} <i class="icon fas fa-arrow-right"></i>
           </a>
         </li>
       </ul>

@@ -38,5 +38,9 @@ return [
         'webpay_plus_integration_mode' => 'Integration',
         'webpay_plus_production_mode' => 'Production',
         'webpay_plus_save_button' => 'Save',
+        'navbar' => [
+            'transactions' => 'Transactions',
+            'healthcheck' => 'healthcheck',
+        ],
     ],
 ];
