@@ -1,6 +1,6 @@
 {
     "name": "WebpayPlus module",
-    "image": "images/logo.png",
+    "image": "images/webpay_logo.png",
     "auth": "Smart-SofTech (DarkFrost)",
     "email": "m.astudillo.toledo@gmail.com",
     "link": "https://github.com/DarkFrostnight/plugin-scart-webpay-rest",
