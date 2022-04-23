@@ -1,5 +1,8 @@
 {
     "require": {
-        "transbank/transbank-sdk": "^2.0"
-    }
+        "transbank/transbank-sdk": "^2.0",
+        "php": "^7.4|^8.0"
+    },
+    "description": "Transbank sCart Plugin",
+    "name": "transbank/scart-plugin"
 }

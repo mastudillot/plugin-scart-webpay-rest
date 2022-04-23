@@ -2,6 +2,8 @@
 
 namespace App\Plugins\Payment\WebpayPlus\TransbankSDK;
 
+require_once(__DIR__ . '/vendor/autoload.php');
+
 use DateTime;
 use DateTimeZone;
 use Transbank\Webpay\Options;
