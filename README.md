@@ -1,8 +1,11 @@
 # Plugin Webpay Plus para e-commerce S-Cart
 
+Esta versión del plugin fue probada con el e-commerce Scart versión 6.8, para más información del la tienda visitar su [web oficial](https://s-cart.org/en)
+
 ## Dependencias
 
-- Transbank SDK: Se requiere la versión 2.x.
+- [Transbank SDK Oficial](https://github.com/TransbankDevelopers/transbank-sdk-php): Se requiere la versión 2.x.
+- PHP 7.4 o mayor. 
 
 ## Instalación
 
@@ -10,11 +13,24 @@ Antes de instalar el plugin, es necesario configurar algunos archivos del servid
 
 ### Cookies
 
-Para el correcto funcionamiento del plugin y con el find e evitar perdidas de sesión en algunas respuestas de Transbank es configurar lo siguiente:
+Para el correcto funcionamiento del plugin y con el fin de evitar perdidas de sesión en algunas respuestas de Transbank es necesario configurar lo siguiente:
 
-- Establecer `same_site` a `none` en el archivo `config/session.php`.
+- Establecer `same_site` a `none` en el archivo `config/session.php` del sitio.
 - Añadir la variable `SESSION_SECURE_COOKIE=true` al archivo `.env`.
 
 ### Instalación del plugin
 
-Antes de instalar el plugin es necesario instalar el SDK de Transbank con el comando `composer require transbank/transbank-sdk:^2.0`. Luego es posible instalar el plugin desde el archivo .zip desde el panel de administración.
+Para realizar la instalación, se debe subir el plugin desde la opción `Import plugin` desde la sección de `Payment` en `Extensions->Plugins`.
+
+Se debe seleccionar el archivo y pulsar el botón import.
+
+### Generar una nueva versión
+
+Para generar una nueva versión se debe crear una `variable de entorno` con la versión a generar y luego ejecutar el archivo `package.sh`.
+
+```bash
+export TAG="1.0.0"
+./package.sh
+```
+
+
