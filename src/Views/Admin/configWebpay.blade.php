@@ -5,14 +5,14 @@
   @csrf
   <div class="flex flex-row">
     <label for="environment" class="w-40 m-0 break-words">
-      {{ trans($pathPlugin.'::lang.admin.webpay_plus_environment') }}:
+      {{ trans($pathPlugin.'::lang.admin.environment') }}:
     </label>
     <select name="environment" id="environment" class="border rounded ml-auto w-96 p-1">
       <option value="integration" {{ sc_config('WebpayPlus_environment')=='integration' ? 'selected' : '' }}>
-        {{ trans($pathPlugin.'::lang.admin.webpay_plus_integration_mode') }}
+        {{ trans($pathPlugin.'::lang.admin.integration_mode') }}
       </option>
       <option value="production" {{ sc_config('WebpayPlus_environment')=='production' ? 'selected' : '' }}>
-        {{ trans($pathPlugin.'::lang.admin.webpay_plus_production_mode') }}
+        {{ trans($pathPlugin.'::lang.admin.production_mode') }}
       </option>
     </select>
   </div>
@@ -23,7 +23,7 @@
   @endif
   <div class="flex flex-row">
     <label for="commerce-code" class="w-40 m-0 break-words">
-      {{ trans($pathPlugin.'::lang.admin.webpay_plus_commerce_code') }}:
+      {{ trans($pathPlugin.'::lang.admin.commerce_code') }}:
     </label>
     <input type="text" name="commerce-code" id="commerce-code" class="border rounded ml-auto w-96 p-1"
       placeholder="597012345678"
@@ -37,7 +37,7 @@
   @endif
   <div class="flex flex-row">
     <label for="api-key" class="w-40 m-0 break-words">
-      {{ trans($pathPlugin.'::lang.admin.webpay_plus_api_key') }}:
+      {{ trans($pathPlugin.'::lang.admin.api_key') }}:
     </label>
     <input type="password" name="api-key" id="api-key" class="border rounded ml-auto w-96 p-1"
       value="{{ sc_config('WebpayPlus_environment') == 'production' ? sc_config('WebpayPlus_commerce_code') : ''}}" {{
@@ -50,7 +50,7 @@
   @endif
   <div class="flex flex-row">
     <label for="order-status-success" class="w-40 m-0 break-words">
-      {{ trans($pathPlugin.'::lang.admin.webpay_plus_order_status_success') }}:
+      {{ trans($pathPlugin.'::lang.admin.order_status_success') }}:
     </label>
     <select name="order-status-success" id="order-status-success" class="border rounded ml-auto w-96 p-1">
       @for ($i = 1; $i <= count($statusOrder); $i++) <option value="{{ $i }}" {{
@@ -67,7 +67,7 @@
   @endif
   <div class="flex flex-row">
     <label for="order-status-failed" class="w-40 m-0 break-words">
-      {{ trans($pathPlugin.'::lang.admin.webpay_plus_order_status_failed') }}:
+      {{ trans($pathPlugin.'::lang.admin.order_status_failed') }}:
     </label>
     <select name="order-status-failed" id="order-status-failed" class="border rounded ml-auto w-96 p-1">
       @for ($i = 1; $i <= count($statusOrder); $i++) <option value="{{ $i }}" {{
@@ -84,7 +84,7 @@
   @endif
   <div class="flex flex-row">
     <label for="payment-status" class="w-40 m-0 break-words">
-      {{ trans($pathPlugin.'::lang.admin.webpay_plus_payment_status') }}:
+      {{ trans($pathPlugin.'::lang.admin.payment_status') }}:
     </label>
     <select name="payment-status" id="payment-status" class="border rounded ml-auto w-96 p-1">
       @for ($i = 1; $i <= count($paymentStatus); $i++) <option value="{{ $i }}" {{
@@ -100,7 +100,7 @@
   </span>
   @endif
   <button type="submit" class="border rounded w-20 px-2 py-1 bg-blue-400 hover:bg-blue-500 text-white">
-    {{ trans($pathPlugin.'::lang.admin.webpay_plus_save_button') }}
+    {{ trans($pathPlugin.'::lang.admin.save_button') }}
   </button>
 </form>
 @endsection

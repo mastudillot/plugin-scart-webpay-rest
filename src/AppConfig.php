@@ -61,7 +61,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_commerce_code',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
-                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_commerce_code',
+                    'detail' => $this->pathPlugin.'::lang.admin.commerce_code',
                 ],
                 [
                     'group' => '',
@@ -69,7 +69,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_api_key',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
-                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_api_key',
+                    'detail' => $this->pathPlugin.'::lang.admin.api_key',
                 ],
                 [
                     'group' => '',
@@ -77,7 +77,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_environment',
                     'sort' => 0, // Sort extensions in group
                     'value' => 'integration',
-                    'detail' => $this->pathPlugin.'::'. $this->configKey . '.webpay_plus_environment',
+                    'detail' => $this->pathPlugin.'::'. $this->configKey . '.environment',
                 ],
                 // Payment status
                 [
@@ -86,7 +86,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_order_status_success',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ORDER_STATUS_PROCESSING,
-                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_order_status_success',
+                    'detail' => $this->pathPlugin.'::lang.admin.order_status_success',
                 ],
                 [
                     'group' => '',
@@ -94,7 +94,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_order_status_failed',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ORDER_STATUS_FAILED,
-                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_order_status_failed',
+                    'detail' => $this->pathPlugin.'::lang.admin.order_status_failed',
                 ],
                 [
                     'group' => '',
@@ -102,7 +102,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey.'_payment_status',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::PAYMENT_STATUS,
-                    'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_payment_status',
+                    'detail' => $this->pathPlugin.'::lang.admin.payment_status',
                 ],
             ];
             $process = AdminConfig::insert(

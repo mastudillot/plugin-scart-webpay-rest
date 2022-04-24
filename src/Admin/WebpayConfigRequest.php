@@ -37,16 +37,16 @@ class WebpayConfigRequest extends FormRequest
 
     public function messages()
     {
-        $requireAttributeTranslation = '::lang.errors.config.webpay_plus_attribute_required';
-        $numericAttributeTranslation = '::lang.errors.config.webpay_plus_attribute_numeric';
-        $existsAttributeTranslation = '::lang.errors.config.webpay_plus_environment_exist';
-        $stringAttributeTranslation = '::lang.errors.config.webpay_plus_attribute_string';
+        $requireAttributeTranslation = '::lang.errors.config.attribute_required';
+        $numericAttributeTranslation = '::lang.errors.config.attribute_numeric';
+        $existsAttributeTranslation = '::lang.errors.config.environment_exist';
+        $stringAttributeTranslation = '::lang.errors.config.attribute_string';
         
         $pathPlugin = (new AppConfig)->pathPlugin;
         return [
             'environment.required' => trans($pathPlugin . $requireAttributeTranslation),
             'environment.string' => trans($pathPlugin . $stringAttributeTranslation),
-            'environment.in' => trans($pathPlugin . '::ang.errors.config.webpay_plus_environment_in'),
+            'environment.in' => trans($pathPlugin . '::ang.errors.config.environment_in'),
             'order-status-success.required' => trans($pathPlugin . $requireAttributeTranslation),
             'order-status-success.numeric' => trans($pathPlugin . $numericAttributeTranslation),
             'order-status-success.exist' => trans($pathPlugin . $existsAttributeTranslation),
@@ -67,12 +67,12 @@ class WebpayConfigRequest extends FormRequest
     {
         $pathPlugin = (new AppConfig)->pathPlugin;
         return [
-            'environment' => trans($pathPlugin . '::lang.admin.webpay_plus_environment'),
-            'order-status-success' => trans($pathPlugin . '::lang.admin.webpay_plus_order_status_success'),
-            'order-status-failed' => trans($pathPlugin . '::lang.admin.webpay_plus_order_status_failed'),
-            'payment-status' => trans($pathPlugin . '::lang.admin.webpay_plus_payment_status'),
-            'commerce-code' => trans($pathPlugin . '::lang.admin.webpay_plus_commerce_code'),
-            'api-key' => trans($pathPlugin . '::lang.admin.webpay_plus_api_key'),
+            'environment' => trans($pathPlugin . '::lang.admin.environment'),
+            'order-status-success' => trans($pathPlugin . '::lang.admin.order_status_success'),
+            'order-status-failed' => trans($pathPlugin . '::lang.admin.order_status_failed'),
+            'payment-status' => trans($pathPlugin . '::lang.admin.payment_status'),
+            'commerce-code' => trans($pathPlugin . '::lang.admin.commerce_code'),
+            'api-key' => trans($pathPlugin . '::lang.admin.api_key'),
         ];
     }
 }
