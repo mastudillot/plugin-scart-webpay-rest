@@ -6,7 +6,8 @@
     $this->loadViewsFrom(__DIR__.'/Views', 'Plugins/Payment/WebpayPlus');
 
     if (sc_config('WebpayPlus')) {
-    // $this->mergeConfigFrom(
-    //     __DIR__.'/config.php', 'key_define_for_plugin'
-    // );
+      // Revisar que se puede hacer
+      // $this->mergeConfigFrom(
+      //     __DIR__.'/config.php', 'key_define_for_plugin'
+      // );
     }

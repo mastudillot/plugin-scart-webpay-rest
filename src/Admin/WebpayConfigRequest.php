@@ -37,24 +37,29 @@ class WebpayConfigRequest extends FormRequest
 
     public function messages()
     {
+        $requireAttributeTranslation = '::lang.errors.config.webpay_plus_attribute_required';
+        $numericAttributeTranslation = '::lang.errors.config.webpay_plus_attribute_numeric';
+        $existsAttributeTranslation = '::lang.errors.config.webpay_plus_environment_exist';
+        $stringAttributeTranslation = '::lang.errors.config.webpay_plus_attribute_string';
+        
         $pathPlugin = (new AppConfig)->pathPlugin;
         return [
-            'environment.required' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_required'),
-            'environment.string' => trans($pathPlugin . '::ang.errors.config.webpay_plus_attribute_string'),
+            'environment.required' => trans($pathPlugin . $requireAttributeTranslation),
+            'environment.string' => trans($pathPlugin . $stringAttributeTranslation),
             'environment.in' => trans($pathPlugin . '::ang.errors.config.webpay_plus_environment_in'),
-            'order-status-success.required' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_required'),
-            'order-status-success.numeric' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_numeric'),
-            'order-status-success.exist' => trans($pathPlugin . '::lang.errors.config.webpay_plus_environment_exist'),
-            'order-status-failed.required' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_required'),
-            'order-status-failed.numeric' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_numeric'),
-            'order-status-failed.exist' => trans($pathPlugin . '::lang.errors.config.webpay_plus_environment_exist'),
-            'payment-status.required' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_required'),
-            'payment-status.numeric' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_numeric'),
-            'payment-status.exist' => trans($pathPlugin . '::lang.errors.config.webpay_plus_environment_exist'),
-            'commerce-code.required' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_required'),
-            'commerce-code.numeric' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_numeric'),
-            'api-key.required' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_required'),
-            'api-key.string' => trans($pathPlugin . '::lang.errors.config.webpay_plus_attribute_string'),
+            'order-status-success.required' => trans($pathPlugin . $requireAttributeTranslation),
+            'order-status-success.numeric' => trans($pathPlugin . $numericAttributeTranslation),
+            'order-status-success.exist' => trans($pathPlugin . $existsAttributeTranslation),
+            'order-status-failed.required' => trans($pathPlugin . $requireAttributeTranslation),
+            'order-status-failed.numeric' => trans($pathPlugin . $numericAttributeTranslation),
+            'order-status-failed.exist' => trans($pathPlugin . $existsAttributeTranslation),
+            'payment-status.required' => trans($pathPlugin . $requireAttributeTranslation),
+            'payment-status.numeric' => trans($pathPlugin . $numericAttributeTranslation),
+            'payment-status.exist' => trans($pathPlugin . $existsAttributeTranslation),
+            'commerce-code.required' => trans($pathPlugin . $requireAttributeTranslation),
+            'commerce-code.numeric' => trans($pathPlugin . $numericAttributeTranslation),
+            'api-key.required' => trans($pathPlugin . $requireAttributeTranslation),
+            'api-key.string' => trans($pathPlugin . $stringAttributeTranslation),
         ];
     }
 

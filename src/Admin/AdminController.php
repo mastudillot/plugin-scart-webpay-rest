@@ -36,20 +36,9 @@ class AdminController extends RootAdminController
         $option = $request->get('option') ?? 'config';
 
         $view = isset($adminViews[$option]) ? $adminViews[$option] : $adminViews['config'];
-        // dd(sc_language_render('admin.plugin.' . $this->configCode.'_plugin'));
+
         $breadcrumb['url'] = sc_route_admin('admin_plugin', ['code' => $this->configCode]);
         $breadcrumb['name'] = sc_language_render('admin.plugin.' . $this->configCode.'_plugin');
-        /*return view($this->pathPlugin . '::Admin')->with(
-            [
-                'pathPlugin' => $this->pathPlugin,
-                'code' => $this->configCode,
-                'key' => $this->configKey,
-                'title' => $this->title,
-                'breadcrumb' => $breadcrumb,
-                'jsonStatusOrder' => json_encode(ShopOrderStatus::getIdAll()),
-                'jsonPaymentStatus' => json_encode(ShopPaymentStatus::getIdAll()),
-            ]
-        ); */
 
         return view($this->pathPlugin.'::Admin.'.$view,
             [

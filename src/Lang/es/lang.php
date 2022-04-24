@@ -2,14 +2,14 @@
 return [
     'title' => 'WebpayPlus',
     'errors' => [
-        'webpay_plus_payment_timeout' => 'Tiempo agotado para el pago, ningun cargo fue realizado',
+        'webpay_plus_payment_timeout' => 'Tiempo agotado para el pago, ningún cargo fue realizado',
         'webpay_plus_payment_aborted' => 'Pago cancelado',
-        'webpay_plus_payment_error' => 'Error al realizar el pago, ningun cargo fue realizado',
-        'webpay_plus_payment_rejected' => 'Pago rechazado, intente con otro método de pago, ningun cargo fue realizado',
+        'webpay_plus_payment_error' => 'Error al realizar el pago, ningún cargo fue realizado',
+        'webpay_plus_payment_rejected' => 'Pago rechazado, intente con otro método de pago, ningún cargo fue realizado',
         'config' => [
-            'webpay_plus_attribute_required' => 'El valor para :attribute no puede estar vacio.',
+            'webpay_plus_attribute_required' => 'El valor para :attribute no puede estar vació.',
             'webpay_plus_attribute_string' => 'El valor para :attribute debe ser un texto.',
-            'webpay_plus_attribute_numeric' => 'El valor para :attribute debe ser numerico.',
+            'webpay_plus_attribute_numeric' => 'El valor para :attribute debe ser numérico.',
             'webpay_plus_environment_in' => 'El valor para :attribute debe ser integración o producción.',
             'webpay_plus_environment_exist' => 'El valor para :attribute es invalido.',
         ],
@@ -32,7 +32,7 @@ return [
         'webpay_plus_commerce_code' => 'Código de comercio',
         'webpay_plus_api_key' => 'API Key',
         'webpay_plus_order_status_success' => 'Orden completa',
-        'webpay_plus_order_status_faild' => 'Orden fallida',
+        'webpay_plus_order_status_failed' => 'Orden fallida',
         'webpay_plus_payment_status' => 'Estado del pago',
         'webpay_plus_environment' => 'Entorno',
         'webpay_plus_integration_mode' => 'Integración',
