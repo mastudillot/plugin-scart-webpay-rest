@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mastudillot_plugin-scart-webpay-rest&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mastudillot_plugin-scart-webpay-rest)
+
 # Plugin Webpay Plus para e-commerce S-Cart
 
 Esta versión del plugin fue probada con el e-commerce Scart versión 6.9, para más información del la tienda visitar su [web oficial](https://s-cart.org/en)
