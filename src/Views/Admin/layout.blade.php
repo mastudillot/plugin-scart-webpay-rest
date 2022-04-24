@@ -9,17 +9,17 @@
       <ul class="flex flex-col content-center bg-white rounded-b-xl">
         <li class="p-3 {{ $view == 'configWebpay' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'config']) }}">
-            Webpay Plus <i class="icon fas fa-arrow-right"></i>
+            Webpay Plus <em class="icon fas fa-arrow-right"></em>
           </a>
         </li>
         <li class="p-3 {{ $view == 'transaction' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'transactions']) }}">
-            {{ trans($pathPlugin.'::lang.admin.navbar.transactions') }} <i class="icon fas fa-arrow-right"></i>
+            {{ trans($pathPlugin.'::lang.admin.navbar.transactions') }} <em class="icon fas fa-arrow-right"></em>
           </a>
         </li>
         <li class="p-3 {{ $view == 'healthcheck' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'healthcheck']) }}">
-            {{ trans($pathPlugin.'::lang.admin.navbar.healthcheck') }} <i class="icon fas fa-arrow-right"></i>
+            {{ trans($pathPlugin.'::lang.admin.navbar.healthcheck') }} <em class="icon fas fa-arrow-right"></em>
           </a>
         </li>
       </ul>
