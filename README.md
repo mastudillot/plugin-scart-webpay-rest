@@ -1,6 +1,6 @@
 # Plugin Webpay Plus para e-commerce S-Cart
 
-Esta versión del plugin fue probada con el e-commerce Scart versión 6.8, para más información del la tienda visitar su [web oficial](https://s-cart.org/en)
+Esta versión del plugin fue probada con el e-commerce Scart versión 6.9, para más información del la tienda visitar su [web oficial](https://s-cart.org/en)
 
 ## Dependencias
 
