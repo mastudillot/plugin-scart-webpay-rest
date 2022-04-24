@@ -3,12 +3,12 @@
 
 namespace App\Plugins\Payment\WebpayPlus\Admin;
 
-use App\Http\Controllers\RootAdminController;
 use App\Plugins\Payment\WebpayPlus\AppConfig;
 use Illuminate\Http\Request;
+use SCart\Core\Admin\Models\AdminConfig;
+use SCart\Core\Admin\Controllers\RootAdminController;
 use SCart\Core\Front\Models\ShopOrderStatus;
 use SCart\Core\Front\Models\ShopPaymentStatus;
-use SCart\Core\Admin\Models\AdminConfig;
 
 class AdminController extends RootAdminController
 {

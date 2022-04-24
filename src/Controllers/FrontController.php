@@ -5,9 +5,9 @@ namespace App\Plugins\Payment\WebpayPlus\Controllers;
 use Throwable;
 use Illuminate\Http\Request;
 use App\Plugins\Payment\WebpayPlus\AppConfig;
-use App\Http\Controllers\RootFrontController;
 use App\Plugins\Payment\WebpayPlus\TransbankSDK\Webpay;
 use App\Plugins\Payment\WebpayPlus\Models\WebpayTransaction;
+use SCart\Core\Front\Controllers\RootFrontController;
 use SCart\Core\Front\Controllers\ShopCartController;
 use SCart\Core\Front\Models\ShopOrder;
 
