@@ -12,8 +12,10 @@ use App\Plugins\ConfigDefault;
 class AppConfig extends ConfigDefault
 {
     const ORDER_STATUS_PROCESSING = 2; // Processing
-    const ORDER_STATUS_FAILD = 6; // Failed
+    const ORDER_STATUS_FAILED = 6; // Failed
     const PAYMENT_STATUS = 3; // Paid
+
+    const CONFIG_PREFIX = '_config';
 
     public function __construct()
     {
@@ -38,7 +40,6 @@ class AppConfig extends ConfigDefault
 
     public function install()
     {
-        $return = ['error' => 0, 'msg' => ''];
         $check = AdminConfig::where('key', $this->configKey)->first();
         if ($check) {
             //Check Plugin key exist
@@ -56,7 +57,7 @@ class AppConfig extends ConfigDefault
                 ],
                 [
                     'group' => '',
-                    'code' => $this->configKey.'_config',
+                    'code' => $this->configKey.self::CONFIG_PREFIX,
                     'key' => $this->configKey.'_commerce_code',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
@@ -64,7 +65,7 @@ class AppConfig extends ConfigDefault
                 ],
                 [
                     'group' => '',
-                    'code' => $this->configKey.'_config',
+                    'code' => $this->configKey.self::CONFIG_PREFIX,
                     'key' => $this->configKey.'_api_key',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
@@ -72,7 +73,7 @@ class AppConfig extends ConfigDefault
                 ],
                 [
                     'group' => '',
-                    'code' => $this->configKey.'_config',
+                    'code' => $this->configKey.self::CONFIG_PREFIX,
                     'key' => $this->configKey.'_environment',
                     'sort' => 0, // Sort extensions in group
                     'value' => 'integration',
@@ -81,7 +82,7 @@ class AppConfig extends ConfigDefault
                 // Payment status
                 [
                     'group' => '',
-                    'code' => $this->configKey.'_config',
+                    'code' => $this->configKey.self::CONFIG_PREFIX,
                     'key' => $this->configKey.'_order_status_success',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ORDER_STATUS_PROCESSING,
@@ -89,15 +90,15 @@ class AppConfig extends ConfigDefault
                 ],
                 [
                     'group' => '',
-                    'code' => $this->configKey.'_config',
+                    'code' => $this->configKey.self::CONFIG_PREFIX,
                     'key' => $this->configKey.'_order_status_failed',
                     'sort' => 0, // Sort extensions in group
-                    'value' => self::ORDER_STATUS_FAILD,
+                    'value' => self::ORDER_STATUS_FAILED,
                     'detail' => $this->pathPlugin.'::lang.admin.webpay_plus_order_status_failed',
                 ],
                 [
                     'group' => '',
-                    'code' => $this->configKey.'_config',
+                    'code' => $this->configKey.self::CONFIG_PREFIX,
                     'key' => $this->configKey.'_payment_status',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::PAYMENT_STATUS,
@@ -132,7 +133,7 @@ class AppConfig extends ConfigDefault
             //     ]
             // );
             if (!$process) {
-                $return = ['error' => 1, 'msg' => sc_language_render('admin.plugin.install_faild')];
+                $return = ['error' => 1, 'msg' => sc_language_render('admin.plugin.install_failed')];
             } else {
                 $return = (new PluginModel)->installExtension();
             }
@@ -147,7 +148,7 @@ class AppConfig extends ConfigDefault
         //Please delete all values inserted in the installation step
         $process = (new AdminConfig)
             ->where('key', $this->configKey)
-            ->orWhere('code', $this->configKey.'_config')
+            ->orWhere('code', $this->configKey.self::CONFIG_PREFIX)
             ->delete();
         if (!$process) {
             $return = ['error' => 1, 'msg' => sc_language_render('admin.plugin.action_error', ['action' => 'Uninstall'])];
@@ -186,7 +187,7 @@ class AppConfig extends ConfigDefault
 
     public function getData()
     {
-        $arrData = [
+        return [
             'title' => $this->title,
             'code' => $this->configCode,
             'key' => $this->configKey,
@@ -198,8 +199,6 @@ class AppConfig extends ConfigDefault
             'value' => 0, // this return need for plugin shipping
             'pathPlugin' => $this->pathPlugin
         ];
-
-        return $arrData;
     }
 
     /**

@@ -18,7 +18,7 @@
   </div>
   @if ($errors->has('environment'))
   <span class="text-sm text-red-400 text-right">
-    <i class="fa fa-info-circle"></i> {{ $errors->first('environment') }}
+    <em class="fa fa-info-circle"></em> {{ $errors->first('environment') }}
   </span>
   @endif
   <div class="flex flex-row">
@@ -32,7 +32,7 @@
   </div>
   @if ($errors->has('commerce-code'))
   <span class="text-sm text-red-400 text-right">
-    <i class="fa fa-info-circle"></i> {{ $errors->first('commerce-code') }}
+    <em class="fa fa-info-circle"></em> {{ $errors->first('commerce-code') }}
   </span>
   @endif
   <div class="flex flex-row">
@@ -45,7 +45,7 @@
   </div>
   @if ($errors->has('api-key'))
   <span class="text-sm text-red-400 text-right">
-    <i class="fa fa-info-circle"></i> {{ $errors->first('api-key') }}
+    <em class="fa fa-info-circle"></em> {{ $errors->first('api-key') }}
   </span>
   @endif
   <div class="flex flex-row">
@@ -62,7 +62,7 @@
   </div>
   @if ($errors->has('order-status-succes'))
   <span class="text-sm text-red-400 text-right">
-    <i class="fa fa-info-circle"></i> {{ $errors->first('order-status-succes') }}
+    <em class="fa fa-info-circle"></em> {{ $errors->first('order-status-succes') }}
   </span>
   @endif
   <div class="flex flex-row">
@@ -79,7 +79,7 @@
   </div>
   @if ($errors->has('order-status-failed'))
   <span class="text-sm text-red-400 text-right">
-    <i class="fa fa-info-circle"></i> {{ $errors->first('order-status-failed') }}
+    <em class="fa fa-info-circle"></em> {{ $errors->first('order-status-failed') }}
   </span>
   @endif
   <div class="flex flex-row">
@@ -96,7 +96,7 @@
   </div>
   @if ($errors->has('payment-status'))
   <span class="text-sm text-red-400 text-right">
-    <i class="fa fa-info-circle"></i> {{ $errors->first('payment-status') }}
+    <em class="fa fa-info-circle"></em> {{ $errors->first('payment-status') }}
   </span>
   @endif
   <button type="submit" class="border rounded w-20 px-2 py-1 bg-blue-400 hover:bg-blue-500 text-white">

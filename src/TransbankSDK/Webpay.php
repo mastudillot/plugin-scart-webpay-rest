@@ -34,8 +34,7 @@ class Webpay
     }
     public function create($buyOrder, $sessionId, $amount, $returnUrl)
     {
-        $response = $this->transaction->create($buyOrder, $sessionId, $amount, $returnUrl);
-        return $response;
+        return $this->transaction->create($buyOrder, $sessionId, $amount, $returnUrl);
     }
 
     public function commit($token)
@@ -53,7 +52,7 @@ class Webpay
         return $this->transaction->status($token);
     }
 
-    public function getFormatedResponse($response) 
+    public function getFormattedResponse($response) 
     {
         $vci = $response->getVci();
         $amount = $response->getAmount();
@@ -74,9 +73,9 @@ class Webpay
         $utc_date = new DateTime($transactionDate, new DateTimeZone('UTC'));
         $local_date = $utc_date;
         $local_date->setTimeZone(new DateTimeZone('America/Santiago'));
-        $formatedDate = $local_date->format('d-m-Y H:i:s');
+        $formattedDate = $local_date->format('d-m-Y H:i:s');
 
-        $formatedResponse = array(
+        return array(
             'isApproved' => $response->isApproved(),
             'vci' => $vci,
             'amount' => $amount,
@@ -86,7 +85,7 @@ class Webpay
             'cardDetail' => $cardDetail,
             'cardNumber' => $cardNumber,
             'accountingDate' => $accountingDate,
-            'transactionDate' => $formatedDate,
+            'transactionDate' => $formattedDate,
             'authorizationCode' => $authorizationCode,
             'paymentTypeCode' => $paymentTypeCode,
             'responseCode' => $responseCode,
@@ -94,7 +93,5 @@ class Webpay
             'installmentsNumber' => $installmentsNumber,
             'balance' => $balance
         );
-
-        return $formatedResponse;
     }
 }

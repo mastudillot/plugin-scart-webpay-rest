@@ -108,11 +108,59 @@ class FrontController extends RootFrontController
 
     public function return($orderId, Request $request)
     {      
-        $customer = session('customer');
+        $token_ws = $request->get('token_ws');
+
+        // Se verifica el resultado de la pasarela de pago.
+        $webpayError = $this->checkWebpayResult($request);
+        if($webpayError) {
+            return redirect(sc_route('cart'))->with(['error' => $webpayError]);
+        }
+        
+        /* Flujo finalizado correctamente, puede ser aprobado o rechazado */
+        $response = (new Webpay)->commit($token_ws);
+
+        $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $token_ws)->firstOrFail();
+
+        if($response->isApproved()) {
+            $webpayTransaction->status = WebpayTransaction::STATUS_APPROVED;
+        }
+        else {
+            $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
+        }
+
+        $webpayTransaction->transbank_response = json_encode($response);
+        $webpayTransaction->transbank_status = $response->getStatus();
+        $webpayTransaction->transbank_product = WebpayTransaction::PRODUCT_WEBPAY_PLUS;
+        $webpayTransaction->transbank_environment = sc_config('WebpayPlus_environment');
+        $webpayTransaction->save();
+
+        if($response->isApproved()) {
+            ShopOrder::find($orderId)->update([
+                'transaction' => $token_ws, 
+                'status' => sc_config('WebpayPlus_order_status_success'),
+                'payment_status' => sc_config('WebpayPlus_payment_status')
+            ]);
+            //Add history
+            $dataHistory = [
+                'order_id' => $orderId,
+                'content' => trans($this->pathPlugin.'::lang.payment.webpay_plus_paid_with').'Webpay Plus',
+                'order_status_id' => sc_config('WebpayPlus_order_status_success'),
+            ];
+            (new ShopOrder)->addOrderHistory($dataHistory);
+            return (new ShopCartController)->completeOrder();
+        }
+        else {
+            return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_rejected')]);
+        }
+    }
+
+    private function checkWebpayResult($request) {
         $token_ws = $request->get('token_ws');
         $tbk_id_session = $request->get('TBK_ID_SESION');
         $tbk_orden_compra = $request->get('TBK_ORDEN_COMPRA');
         $tbk_token = $request->get('TBK_TOKEN');
+
+        $result = false;
 
         if (is_null($token_ws)) {
             if (is_null($tbk_token)) {
@@ -120,7 +168,7 @@ class FrontController extends RootFrontController
                 $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $tbk_token)->firstOrFail();
                 $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
                 $webpayTransaction->save();
-                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_timeout')]);
+                $result = trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_timeout');
             }
             else {
                 /* Pago abortado */
@@ -131,7 +179,7 @@ class FrontController extends RootFrontController
 
                 $webpayTransaction->status = WebpayTransaction::STATUS_ABORTED_BY_USER;
                 $webpayTransaction->save();
-                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_aborted')]);
+                $result = trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_aborted');
             }
         }
         else if (!is_null($tbk_token)) {
@@ -145,44 +193,10 @@ class FrontController extends RootFrontController
             $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $token_ws)->firstOrFail();
             $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
             $webpayTransaction->save();
-            return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_error')]);
+            $result = trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_error');
         }
-        else {
-            /* Flujo finalizado, puede ser aprobado o rechazado */
-            $response = (new Webpay)->commit($token_ws);
 
-            $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $token_ws)->firstOrFail();
-
-            if($response->isApproved())
-                $webpayTransaction->status = WebpayTransaction::STATUS_APPROVED;
-            else
-                $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
-
-            $webpayTransaction->transbank_response = json_encode($response);
-            $webpayTransaction->transbank_status = $response->getStatus();
-            $webpayTransaction->transbank_product = WebpayTransaction::PRODUCT_WEBPAY_PLUS;
-            $webpayTransaction->transbank_environment = sc_config('WebpayPlus_environment');
-            $webpayTransaction->save();
-
-            if($response->isApproved()) {
-                ShopOrder::find($orderId)->update([
-                    'transaction' => $token_ws, 
-                    'status' => sc_config('WebpayPlus_order_status_success'),
-                    'payment_status' => sc_config('WebpayPlus_payment_status')
-                ]);
-                //Add history
-                $dataHistory = [
-                    'order_id' => $orderId,
-                    'content' => trans($this->pathPlugin.'::lang.payment.webpay_plus_paid_with').'Webpay Plus',
-                    'order_status_id' => sc_config('WebpayPlus_order_status_success'),
-                ];
-                (new ShopOrder)->addOrderHistory($dataHistory);
-                return (new ShopCartController)->completeOrder();
-            }
-            else {
-                return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.webpay_plus_payment_rejected')]);
-            }
-        }
+        return $result;
     }
 
     private function getHistoryContent($token, $commitResponse) {
@@ -196,9 +210,10 @@ class FrontController extends RootFrontController
             default:
                 $cardType = trans($this->pathPlugin.'::lang.payment.webpay_plus_credit');
 
-                if($commitResponse['paymentTypeCode'] != 'VN')
+                if($commitResponse['paymentTypeCode'] != 'VN') {
                     $HistoryContentScrap = '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_installments_number').':</b> '.$commitResponse['installmentsNumber'].'<br>'.
                     '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_installments_amount').':</b> '.$commitResponse['installmentsAmount'].'<br>';
+                }
                 break;
         }
 
@@ -209,8 +224,9 @@ class FrontController extends RootFrontController
         '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_transaction_date').':</b> '.$commitResponse['transactionDate'].'<br>'.
         '<b>'.trans($this->pathPlugin.'::lang.payment.webpay_plus_authorization_code').':</b> '.$commitResponse['authorizationCode'].'<br>';
 
-        if(isset($HistoryContentScrap))
+        if(isset($HistoryContentScrap)) {
             return $HistoryContent.$HistoryContentScrap;
+        }
 
         return $HistoryContent;
     }
