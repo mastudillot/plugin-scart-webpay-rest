@@ -3,3 +3,4 @@
 src/TransbankSDK/vendor
 src/TransbankSDK/composer.lock
 output
+.vscode
