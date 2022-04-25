@@ -22,5 +22,5 @@ class WebpayTransaction extends Model
      *
      * @var string
      */
-    protected $table = 'tbk_webpay_transactions';
+    protected $table = SC_DB_PREFIX.'webpay_transactions';
 }
