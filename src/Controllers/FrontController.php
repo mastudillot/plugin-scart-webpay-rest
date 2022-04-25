@@ -42,6 +42,7 @@ class FrontController extends RootFrontController
             $webpayTransaction->token = $response->getToken();
             $webpayTransaction->session_id = $sessionId;
             $webpayTransaction->status = WebpayTransaction::STATUS_INITIALIZED;
+            $webpayTransaction->transbank_environment = sc_config('WebpayPlus_environment');
             $webpayTransaction->save();
 
             return view($this->plugin->pathPlugin.'::toPay')->with([
@@ -131,7 +132,6 @@ class FrontController extends RootFrontController
         $webpayTransaction->transbank_response = json_encode($response);
         $webpayTransaction->transbank_status = $response->getStatus();
         $webpayTransaction->transbank_product = WebpayTransaction::PRODUCT_WEBPAY_PLUS;
-        $webpayTransaction->transbank_environment = sc_config('WebpayPlus_environment');
         $webpayTransaction->save();
 
         if($response->isApproved()) {
