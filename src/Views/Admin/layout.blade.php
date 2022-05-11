@@ -1,23 +1,23 @@
 @extends($templatePathAdmin.'layout')
 @section('main')
 <div class="p-3">
-  <h1 class="text-4xl -mt-14">{{ trans($pathPlugin.'::lang.admin.title') }}</h1>
-  <div class="flex flex-row gap-4 mt-10">
+  <h1 class="tbk-title">{{ trans($pathPlugin.'::lang.admin.title') }}</h1>
+  <div class="tbk-section d-flex flex-row">
     {{-- Navbar --}}
-    <div class="tbk-nav w-52">
-      <div class="nav-title flex items-center text-white rounded-t-xl border-b py-3 pr-3 pl-3.5">Configuración</div>
-      <ul class="flex flex-col content-center bg-white rounded-b-xl">
-        <li class="p-3 {{ $view == 'configWebpay' ? 'active' : '' }}">
+    <div class="tbk-nav">
+      <div class="nav-title d-flex align-items-center text-white border-bottom">Configuración</div>
+      <ul class="d-flex flex-column aling-content-center bg-white">
+        <li class="{{ $view == 'config' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'config']) }}">
             Webpay Plus <em class="icon fas fa-arrow-right"></em>
           </a>
         </li>
-        <li class="p-3 {{ $view == 'transaction' ? 'active' : '' }}">
+        <li class="{{ $view == 'transactions' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'transactions']) }}">
             {{ trans($pathPlugin.'::lang.admin.navbar.transactions') }} <em class="icon fas fa-arrow-right"></em>
           </a>
         </li>
-        <li class="p-3 {{ $view == 'healthcheck' ? 'active' : '' }}">
+        <li class="{{ $view == 'healthcheck' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'healthcheck']) }}">
             {{ trans($pathPlugin.'::lang.admin.navbar.healthcheck') }} <em class="icon fas fa-arrow-right"></em>
           </a>
@@ -26,7 +26,7 @@
     </div>
     {{-- Navbar --}}
     {{-- Content --}}
-    <div class="w-full" id="content">
+    <div class="w-100" id="content">
       @yield('content')
     </div>
     {{-- Content --}}
@@ -35,20 +35,26 @@
 @endsection
 
 @push('styles')
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <style type="text/css">
+  .tbk-nav {
+    width: 12.5rem;
+  }
   .tbk-nav .nav-title {
     background: #6B1A6B;
+    border-radius: 0.75rem 0.75rem 0 0;
+    padding: 0.75rem 0.75rem 0.75rem 0.875rem
   }
 
   .tbk-nav ul {
     list-style: none;
     margin: 0;
+    border-radius: 0 0 0.75rem 0.75rem;
+    padding: 0;
   }
 
   .tbk-nav ul li {
     margin: 0;
-    padding: 0;
+    padding: 0.75rem;
   }
 
   .tbk-nav ul li a {
@@ -67,6 +73,7 @@
     transition: .5s;
     right: 20px;
     position: relative;
+    padding: 0.25rem;
   }
 
   .tbk-nav ul li.active {
@@ -88,6 +95,26 @@
   .tbk-nav ul li a:hover .icon {
     opacity: 1;
     right: 0;
+  }
+
+  .tbk-title {
+    margin-top: -3.5rem;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+  
+  .tbk-section {
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .tbk-content {
+    border-radius: 0.75rem;
+    padding: 1rem!important;
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    margin-bottom: 1rem;
+    background-color: #fff;
+    color: #1f2d3d!important;
   }
 </style>
 @endpush

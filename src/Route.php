@@ -16,10 +16,10 @@ Route::group(
         Route::get('index', 'FrontController@index')
         ->name('webpayplus.index');
         Route::get('process-order', 'FrontController@processOrder')
-        ->name('webpayplus.processOrder'); 
-        Route::any('return/{orderId}', 'FrontController@return')
+        ->name('webpayplus.process_order'); 
+        Route::any('finish/{orderId}', 'FrontController@finish')
         ->withoutMiddleware(VerifyCsrfToken::class)
-        ->name('webpayplus.return');
+        ->name('webpayplus.finish');
     }
 );
 }
@@ -37,5 +37,7 @@ Route::group(
         ->name('admin_webpayplus.index');
         Route::post('/config', 'AdminController@saveConfig')
         ->name('admin_webpayplus.config.save');
+        Route::get('/transaction/{id}', 'AdminController@transactionDetail')
+        ->name('admin_webpayplus.transaction');
     }
 );

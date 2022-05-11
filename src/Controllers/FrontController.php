@@ -32,7 +32,7 @@ class FrontController extends RootFrontController
         $buyOrder = $dataPayment['reference_id'];
         $sessionId = session()->getId();
         $amount = $dataPayment['amount']['value'];
-        $returnUrl = sc_route('webpayplus.return', ['orderId' => $buyOrder]);
+        $returnUrl = sc_route('webpayplus.finish', ['orderId' => $buyOrder]);
 
         try {
             $response = (new Webpay)->create($buyOrder, $sessionId, $amount, $returnUrl);
@@ -42,6 +42,7 @@ class FrontController extends RootFrontController
             $webpayTransaction->token = $response->getToken();
             $webpayTransaction->session_id = $sessionId;
             $webpayTransaction->status = WebpayTransaction::STATUS_INITIALIZED;
+            $webpayTransaction->transbank_environment = sc_config('WebpayPlus_environment');
             $webpayTransaction->save();
 
             return view($this->plugin->pathPlugin.'::toPay')->with([
@@ -106,7 +107,7 @@ class FrontController extends RootFrontController
         }
     }
 
-    public function return($orderId, Request $request)
+    public function finish($orderId, Request $request)
     {      
         $token_ws = $request->get('token_ws');
 
@@ -131,7 +132,6 @@ class FrontController extends RootFrontController
         $webpayTransaction->transbank_response = json_encode($response);
         $webpayTransaction->transbank_status = $response->getStatus();
         $webpayTransaction->transbank_product = WebpayTransaction::PRODUCT_WEBPAY_PLUS;
-        $webpayTransaction->transbank_environment = sc_config('WebpayPlus_environment');
         $webpayTransaction->save();
 
         if($response->isApproved()) {
