@@ -43,4 +43,53 @@ return [
             'healthcheck' => 'healthcheck',
         ],
     ],
+    'transactions' => [
+        'table' => [
+            'id' => 'ID',
+            'order_id' => 'Buy order',
+            'token' => 'Token',
+            'session_id' => 'Session ID',
+            'status' => 'Status',
+            'amount' => 'Amount',
+            'transbank_response' => 'Transbank response',
+            'transbank_status' => 'Transbank status',
+            'transbank_product' => 'Product',
+            'transbank_environment' => 'Environment',
+            'created_at' => 'Created at',
+            'action' => 'Action',
+            'actions' => [
+                'show' => 'Show',
+            ]
+        ],
+        'status' => [
+            'initialized' => 'Initialized',
+            'failed' => 'Failed',
+            'aborted_by_user' => 'Aborted by user',
+            'approved' => 'Approved',
+        ],
+        'product' => [
+            'webpay_plus' => 'Webpay Plus',
+            'webpay_oneclick' => 'Oneclick',
+        ],
+        'result_items' => 'Showing <b>:from</b> to <b>:to</b> of <b>:total</b> items</b>',
+        'search' => [
+            'from' => 'From',
+            'to' => 'To',
+            'status' => 'Status',
+            'search_transaction_status' => 'Search transaction status',
+        ],
+        'details' => [
+            'title' => 'Transaction detail',
+            'status' => 'Status',
+            'response_code' => 'Response code',
+            'amount' => 'Amount',
+            'authorization_code' => 'Authorization code',
+            'payment_type' => 'Payment type',
+            'installments_number' => 'Installments number',
+            'installments_amount' => 'Installments amount',
+            'card_number' => 'Last 4 digits',
+            'transaction_date' => 'Transaction date',
+            'balance' => 'Balance',
+        ],
+    ]
 ];

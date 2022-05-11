@@ -43,4 +43,53 @@ return [
             'healthcheck' => 'Diagnóstico',
         ],
     ],
+    'transactions' => [
+        'table' => [
+            'id' => 'ID',
+            'order_id' => 'Orden de compra',
+            'token' => 'Token',
+            'session_id' => 'ID de sesión',
+            'status' => 'Estado',
+            'amount' => 'Monto',
+            'transbank_response' => 'Respuesta Transbank',
+            'transbank_status' => 'Estado Transbank',
+            'transbank_product' => 'Producto',
+            'transbank_environment' => 'Entorno',
+            'created_at' => 'Fecha creación',
+            'action' => 'Acción',
+            'actions' => [
+                'show' => 'Ver',
+            ]
+        ],
+        'status' => [
+            'initialized' => 'Inicializada',
+            'failed' => 'Fallida',
+            'aborted_by_user' => 'Cancelada por usuario',
+            'approved' => 'Aprobada',
+        ],
+        'product' => [
+            'webpay_plus' => 'Webpay Plus',
+            'webpay_oneclick' => 'Oneclick',
+        ],
+        'result_items' => 'Mostrando <b>:from</b> de <b>:to</b> de un total de <b>:total</b> items</b>',
+        'search' => [
+            'from' => 'Desde',
+            'to' => 'Hasta',
+            'status' => 'Estado',
+            'search_transaction_status' => 'Buscar por estado de transacción',
+        ],
+        'details' => [
+            'title' => 'Detalles de la transacción',
+            'status' => 'Estado',
+            'response_code' => 'Código de respuesta',
+            'amount' => 'Monto',
+            'authorization_code' => 'Código de autorización',
+            'payment_type' => 'Tipo de pago',
+            'installments_number' => 'Número de cuotas',
+            'installments_amount' => 'Monto cuota',
+            'card_number' => '4 últimos dígitos',
+            'transaction_date' => 'Fecha de la transacción',
+            'balance' => 'Saldo',
+        ],
+    ]
 ];
