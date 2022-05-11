@@ -12,7 +12,7 @@
             Webpay Plus <em class="icon fas fa-arrow-right"></em>
           </a>
         </li>
-        <li class="{{ $view == 'transactionsWebpay' ? 'active' : '' }}">
+        <li class="{{ $view == 'transactions' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'transactions']) }}">
             {{ trans($pathPlugin.'::lang.admin.navbar.transactions') }} <em class="icon fas fa-arrow-right"></em>
           </a>
