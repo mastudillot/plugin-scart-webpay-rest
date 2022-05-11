@@ -7,7 +7,7 @@
     <div class="tbk-nav">
       <div class="nav-title d-flex align-items-center text-white border-bottom">Configuración</div>
       <ul class="d-flex flex-column aling-content-center bg-white">
-        <li class="{{ $view == 'configWebpay' ? 'active' : '' }}">
+        <li class="{{ $view == 'config' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'config']) }}">
             Webpay Plus <em class="icon fas fa-arrow-right"></em>
           </a>
