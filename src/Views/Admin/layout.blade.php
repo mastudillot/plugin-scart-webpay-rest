@@ -2,7 +2,7 @@
 @section('main')
 <div class="p-3">
   <h1 class="tbk-title">{{ trans($pathPlugin.'::lang.admin.title') }}</h1>
-  <div class="tbk-content d-flex flex-row">
+  <div class="tbk-section d-flex flex-row">
     {{-- Navbar --}}
     <div class="tbk-nav">
       <div class="nav-title d-flex align-items-center text-white border-bottom">Configuración</div>
@@ -36,15 +36,6 @@
 
 @push('styles')
 <style type="text/css">
-.tbk-title {
-  margin-top: -3.5rem;
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-  .tbk-content {
-    gap: 1rem;
-    margin-top: 2.5rem;
-  }
   .tbk-nav {
     width: 12.5rem;
   }
@@ -104,6 +95,26 @@
   .tbk-nav ul li a:hover .icon {
     opacity: 1;
     right: 0;
+  }
+
+  .tbk-title {
+    margin-top: -3.5rem;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+  
+  .tbk-section {
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .tbk-content {
+    border-radius: 0.75rem;
+    padding: 1rem!important;
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    margin-bottom: 1rem;
+    background-color: #fff;
+    color: #1f2d3d!important;
   }
 </style>
 @endpush

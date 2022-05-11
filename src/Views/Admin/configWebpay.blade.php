@@ -1,7 +1,7 @@
 @extends($pathPlugin.'::Admin.layout')
 @section('content')
 <form action="{{ sc_route_admin('admin_webpayplus.config.save') }}" method="post"
-  class="tbk-form d-flex flex-column bg-white">
+  class="tbk-content d-flex flex-column">
   @csrf
   <div class="d-flex flex-row">
     <label for="environment">
@@ -107,18 +107,13 @@
 
 @push('styles')
 <style type="text/css">
-.tbk-form {
-  border-radius: 0.75rem;
-  padding: 1rem!important;
-}
-
-.tbk-form div {
+.tbk-content div {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
 }
 
-.tbk-form label {
+.tbk-content label {
   width: 10rem;
   margin: 0px;
   overflow-wrap: break-word;
@@ -130,7 +125,7 @@
   margin-left: auto;
   width: 24rem;
   padding: 0.25rem;
-},
+}
 
 .tbk-form-error {
   font-size: 0.875rem;
@@ -156,12 +151,12 @@
 }
 
 @media (min-width: 1024px) {
-  .tbk-form {
+  .tbk-content {
     width: 83.333333%;
   }
 }
 @media (min-width: 1280px) {
-  .tbk-form {
+  .tbk-content {
     width: 50%;
   }
 }
