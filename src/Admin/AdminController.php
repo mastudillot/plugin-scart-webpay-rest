@@ -4,6 +4,7 @@
 namespace App\Plugins\Payment\WebpayPlus\Admin;
 
 use DateTime;
+use DateTimeZone;
 use App\Plugins\Payment\WebpayPlus\AppConfig;
 use App\Plugins\Payment\WebpayPlus\Models\WebpayTransaction;
 use Illuminate\Http\Request;
@@ -102,6 +103,10 @@ class AdminController extends RootAdminController
             'transaction' => $transaction,
             'transbankResponse' => json_decode($transaction->transbank_response, true),
         ];
+
+        $transactionDate = new DateTime($viewData['transbankResponse']['transactionDate'], new DateTimeZone('UTC'));
+        $transactionDate->setTimeZone(new DateTimeZone('America/Santiago'));
+        $viewData['transbankResponse']['transactionDate'] = $transactionDate->format('d-m-Y H:i:s');
 
         return view($viewData['view'])->with($viewData);
     }
