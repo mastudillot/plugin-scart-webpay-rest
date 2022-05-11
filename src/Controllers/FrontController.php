@@ -32,7 +32,7 @@ class FrontController extends RootFrontController
         $buyOrder = $dataPayment['reference_id'];
         $sessionId = session()->getId();
         $amount = $dataPayment['amount']['value'];
-        $returnUrl = sc_route('webpayplus.return', ['orderId' => $buyOrder]);
+        $returnUrl = sc_route('webpayplus.finish', ['orderId' => $buyOrder]);
 
         try {
             $response = (new Webpay)->create($buyOrder, $sessionId, $amount, $returnUrl);
@@ -107,7 +107,7 @@ class FrontController extends RootFrontController
         }
     }
 
-    public function return($orderId, Request $request)
+    public function finish($orderId, Request $request)
     {      
         $token_ws = $request->get('token_ws');
 
