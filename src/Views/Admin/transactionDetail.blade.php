@@ -7,7 +7,7 @@
                 <div class="btn-group float-right" style="margin-right: 0px">
                     <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'transactions']) }}"
                         class="btn btn-flat btn-default">
-                        <i class="fa fa-list"></i>&nbsp;
+                        <em class="fa fa-list"></em>&nbsp;
                         {{ sc_language_render('admin.back_list') }}
                     </a>
                 </div>

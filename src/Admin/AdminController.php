@@ -10,7 +10,6 @@ use App\Plugins\Payment\WebpayPlus\Models\WebpayTransaction;
 use Illuminate\Http\Request;
 use SCart\Core\Admin\Models\AdminConfig;
 use SCart\Core\Admin\Controllers\RootAdminController;
-use SCart\Core\Front\Models\ShopOrder;
 use SCart\Core\Front\Models\ShopOrderStatus;
 use SCart\Core\Front\Models\ShopPaymentStatus;
 
