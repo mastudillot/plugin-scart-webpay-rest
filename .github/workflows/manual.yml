@@ -1,0 +1,36 @@
+# This is a basic workflow that is manually triggered
+
+name: Release Plugin
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  publish:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set env
+      run: echo "TAG=${{ github.ref }}" >> $GITHUB_ENV
+    - name: Run script file
+      run: |
+         chmod +x ./package.sh
+         ./package.sh
+      shell: bash
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: target/plugin-scart-webpay-rest-${{ github.ref }}.zip
+        asset_name: plugin-scart-webpay-rest-${{ github.ref }}.zip
+        tag: ${{ github.ref }}
+        overwrite: true
