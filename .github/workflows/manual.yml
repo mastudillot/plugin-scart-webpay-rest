@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set env
-      run: echo "TAG=${{ github.ref }}" >> $GITHUB_ENV
+      run: echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
     - name: Run script file
       run: |
          chmod +x ./package.sh
@@ -30,7 +30,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: target/plugin-scart-webpay-rest-${{ github.ref }}.zip
-        asset_name: plugin-scart-webpay-rest-${{ github.ref }}.zip
+        file: output/plugin-scart-webpay-rest-${{ env.TAG }}.zip
+        asset_name: plugin-scart-webpay-rest-${{ env.TAG }}.zip
         tag: ${{ github.ref }}
         overwrite: true
