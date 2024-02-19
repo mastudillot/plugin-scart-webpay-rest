@@ -41,25 +41,23 @@ class AppConfig extends ConfigDefault
 
     public function install()
     {
-        $check = AdminConfig::where('key', $this->configKey)->first();
-        if ($check) {
-            //Check Plugin key exist
-            $return = ['error' => 1, 'msg' =>  sc_language_render('admin.plugin.plugin_exist')];
-        } else {
-            //Insert plugin to config
-            $configData = $this->getInitialConfigData();
-            $process = AdminConfig::insert(
-                $configData
-            );
-
-            if (!$process) {
-                $return = ['error' => 1, 'msg' => sc_language_render('admin.plugin.install_failed')];
-            } else {
-                $return = (new PluginModel)->installExtension();
-            }
+        //Check Plugin key exist
+        $pluginIsInstalled = AdminConfig::where('key', $this->configKey)->first();
+        if ($pluginIsInstalled) {
+            return ['error' => 1, 'msg' =>  sc_language_render('admin.plugin.plugin_exist')];
         }
 
-        return $return;
+        //Insert plugin to config
+        $configData = $this->getInitialConfigData();
+        $insertFailed = AdminConfig::insert(
+            $configData
+        );
+
+        if (!$insertFailed) {
+            return ['error' => 1, 'msg' => sc_language_render('admin.plugin.install_failed')];
+        }
+
+        return (new PluginModel)->installExtension();
     }
 
     public function uninstall()
