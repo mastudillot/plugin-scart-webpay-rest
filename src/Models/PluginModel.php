@@ -1,6 +1,6 @@
 <?php
-#App\Plugins\Payment\WebpayPlus\Models\PluginModel.php
-namespace App\Plugins\Payment\WebpayPlus\Models;
+#App\Plugins\Payment\Transbank\Models\PluginModel.php
+namespace App\Plugins\Payment\Transbank\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;

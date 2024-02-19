@@ -1,12 +1,12 @@
 <?php
-#App\Plugins\Payment\WebpayPlus\Admin\AdminController.php
+#App\Plugins\Payment\Transbank\Admin\AdminController.php
 
-namespace App\Plugins\Payment\WebpayPlus\Admin;
+namespace App\Plugins\Payment\Transbank\Admin;
 
 use DateTime;
 use DateTimeZone;
-use App\Plugins\Payment\WebpayPlus\AppConfig;
-use App\Plugins\Payment\WebpayPlus\Models\WebpayTransaction;
+use App\Plugins\Payment\Transbank\AppConfig;
+use App\Plugins\Payment\Transbank\Models\WebpayTransaction;
 use Illuminate\Http\Request;
 use SCart\Core\Admin\Models\AdminConfig;
 use SCart\Core\Admin\Controllers\RootAdminController;

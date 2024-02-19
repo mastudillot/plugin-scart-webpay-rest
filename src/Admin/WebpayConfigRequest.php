@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Plugins\Payment\WebpayPlus\Admin;
+namespace App\Plugins\Payment\Transbank\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use App\Plugins\Payment\WebpayPlus\AppConfig;
+use App\Plugins\Payment\Transbank\AppConfig;
 
 class WebpayConfigRequest extends FormRequest
 {

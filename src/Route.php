@@ -5,12 +5,12 @@
 
 use App\Http\Middleware\VerifyCsrfToken;
 
-if(sc_config('WebpayPlus')) {
+if(sc_config('Transbank')) {
 Route::group(
     [
         'prefix'    => 'plugin/webpayplus',
         'middleware' => SC_FRONT_MIDDLEWARE,
-        'namespace' => 'App\Plugins\Payment\WebpayPlus\Controllers',
+        'namespace' => 'App\Plugins\Payment\Transbank\Controllers',
     ],
     function () {
         Route::get('index', 'FrontController@index')
@@ -28,9 +28,9 @@ Route::group(
  */
 Route::group(
     [
-        'prefix' => SC_ADMIN_PREFIX.'/webpayplus',
+        'prefix' => SC_ADMIN_PREFIX.'/Transbank',
         'middleware' => SC_ADMIN_MIDDLEWARE,
-        'namespace' => 'App\Plugins\Payment\WebpayPlus\Admin',
+        'namespace' => 'App\Plugins\Payment\Transbank\Admin',
     ], 
     function () {
         Route::get('/', 'AdminController@index')

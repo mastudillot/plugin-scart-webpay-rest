@@ -1,13 +1,13 @@
 <?php 
 
-namespace App\Plugins\Payment\WebpayPlus\TransbankSDK;
+namespace App\Plugins\Payment\Transbank\TransbankSDK;
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
 use DateTime;
 use DateTimeZone;
 use Transbank\Webpay\Options;
-use Transbank\Webpay\WebpayPlus\Transaction;
+use Transbank\Webpay\Transbank\Transaction;
 
 class Webpay
 {

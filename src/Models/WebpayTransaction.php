@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Plugins\Payment\WebpayPlus\Models;
+namespace App\Plugins\Payment\Transbank\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

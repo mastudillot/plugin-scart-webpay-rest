@@ -1,11 +1,12 @@
 <?php
 /**
- * Plugin format 2.0
+ * Plugin format 3.0
+ * Use for S-cart 7.x
  */
-#App\Plugins\Payment\WebpayPlus\AppConfig.php
-namespace App\Plugins\Payment\WebpayPlus;
+#App\Plugins\Payment\Transbank\AppConfig.php
+namespace App\Plugins\Payment\Transbank;
 
-use App\Plugins\Payment\WebpayPlus\Models\PluginModel;
+use App\Plugins\Payment\Transbank\Models\PluginModel;
 use SCart\Core\Admin\Models\AdminConfig;
 use App\Plugins\ConfigDefault;
 
@@ -204,7 +205,7 @@ class AppConfig extends ConfigDefault
     /**
      * Process after order success
      *
-     * @param   [array]  $data  
+     * @param   [array]  $data
      *
      */
     public function endApp($data = []) {

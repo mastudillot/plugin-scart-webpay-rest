@@ -1,12 +1,12 @@
 <?php
-#App\Plugins\Payment\WebpayPlus\Controllers\FrontController.php
-namespace App\Plugins\Payment\WebpayPlus\Controllers;
+#App\Plugins\Payment\Transbank\Controllers\FrontController.php
+namespace App\Plugins\Payment\Transbank\Controllers;
 
 use Throwable;
 use Illuminate\Http\Request;
-use App\Plugins\Payment\WebpayPlus\AppConfig;
-use App\Plugins\Payment\WebpayPlus\TransbankSDK\Webpay;
-use App\Plugins\Payment\WebpayPlus\Models\WebpayTransaction;
+use App\Plugins\Payment\Transbank\AppConfig;
+use App\Plugins\Payment\Transbank\TransbankSDK\Webpay;
+use App\Plugins\Payment\Transbank\Models\WebpayTransaction;
 use SCart\Core\Front\Controllers\RootFrontController;
 use SCart\Core\Front\Controllers\ShopCartController;
 use SCart\Core\Front\Models\ShopOrder;
