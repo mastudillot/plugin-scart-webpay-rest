@@ -47,92 +47,11 @@ class AppConfig extends ConfigDefault
             $return = ['error' => 1, 'msg' =>  sc_language_render('admin.plugin.plugin_exist')];
         } else {
             //Insert plugin to config
-            $dataInsert = [
-                [
-                    'group'  => $this->configGroup,
-                    'code'   => $this->configCode,
-                    'key'    => $this->configKey,
-                    'sort'   => 0,
-                    'value'  => self::ON, //Enable extension
-                    'detail' => $this->pathPlugin.'::lang.title',
-                ],
-                [
-                    'group' => '',
-                    'code' => $this->configKey.self::CONFIG_PREFIX,
-                    'key' => $this->configKey.'_commerce_code',
-                    'sort' => 0, // Sort extensions in group
-                    'value' => '',
-                    'detail' => $this->pathPlugin.'::lang.admin.commerce_code',
-                ],
-                [
-                    'group' => '',
-                    'code' => $this->configKey.self::CONFIG_PREFIX,
-                    'key' => $this->configKey.'_api_key',
-                    'sort' => 0, // Sort extensions in group
-                    'value' => '',
-                    'detail' => $this->pathPlugin.'::lang.admin.api_key',
-                ],
-                [
-                    'group' => '',
-                    'code' => $this->configKey.self::CONFIG_PREFIX,
-                    'key' => $this->configKey.'_environment',
-                    'sort' => 0, // Sort extensions in group
-                    'value' => 'integration',
-                    'detail' => $this->pathPlugin.'::'. $this->configKey . '.environment',
-                ],
-                // Payment status
-                [
-                    'group' => '',
-                    'code' => $this->configKey.self::CONFIG_PREFIX,
-                    'key' => $this->configKey.'_order_status_success',
-                    'sort' => 0, // Sort extensions in group
-                    'value' => self::ORDER_STATUS_PROCESSING,
-                    'detail' => $this->pathPlugin.'::lang.admin.order_status_success',
-                ],
-                [
-                    'group' => '',
-                    'code' => $this->configKey.self::CONFIG_PREFIX,
-                    'key' => $this->configKey.'_order_status_failed',
-                    'sort' => 0, // Sort extensions in group
-                    'value' => self::ORDER_STATUS_FAILED,
-                    'detail' => $this->pathPlugin.'::lang.admin.order_status_failed',
-                ],
-                [
-                    'group' => '',
-                    'code' => $this->configKey.self::CONFIG_PREFIX,
-                    'key' => $this->configKey.'_payment_status',
-                    'sort' => 0, // Sort extensions in group
-                    'value' => self::PAYMENT_STATUS,
-                    'detail' => $this->pathPlugin.'::lang.admin.payment_status',
-                ],
-            ];
+            $configData = $this->getInitialConfigData();
             $process = AdminConfig::insert(
-                $dataInsert
+                $configData
             );
 
-            /*Insert plugin's html elements into index of admin pages
-            Detail: https://s-cart.org/docs/master/create-new-a-plugin.html 
-            */
-
-            // AdminConfig::insert(
-            //     [
-            //         /*
-            //         This is where the html content of the Plugin appears
-            //         group_of_layout allow:
-            //         Position include "topMenuRight, topMenuLeft, menuLeft,menuRight, blockBottom" -> Show on all index pages in admin with corresponding position as above.
-            //         or Position_route_name_of_admin_page. Example menuLeft__admin_product.index, topMenuLeft__admin_order.index
-            //         */
-            //         'group' => 'group_of_layout',
-            //         /*
-            //         code is value option
-            //         */
-            //         'code' => 'code_config_of_plugin',
-            //         'key' => 'key_with_value_unique', //
-            //         'sort' => 0, // int value
-            //         'value' => 'html content or view::path_to_view', // allow html or view::path_to_view
-            //         'detail' => '',
-            //     ]
-            // );
             if (!$process) {
                 $return = ['error' => 1, 'msg' => sc_language_render('admin.plugin.install_failed')];
             } else {
@@ -210,5 +129,67 @@ class AppConfig extends ConfigDefault
      */
     public function endApp($data = []) {
         //action after end app
+    }
+
+    private function getInitialConfigData() {
+        return [
+            [
+                'group'  => $this->configGroup,
+                'code'   => $this->configCode,
+                'key'    => $this->configKey,
+                'sort'   => 0,
+                'value'  => self::ON, //Enable extension
+                'detail' => $this->pathPlugin.'::lang.title',
+            ],
+            [
+                'group'  => $this->configGroup,
+                'code' => $this->configKey.self::CONFIG_PREFIX,
+                'key' => $this->configKey.'_commerce_code',
+                'sort' => 0, // Sort extensions in group
+                'value' => '',
+                'detail' => $this->pathPlugin.'::lang.admin.commerce_code',
+            ],
+            [
+                'group'  => $this->configGroup,
+                'code' => $this->configKey.self::CONFIG_PREFIX,
+                'key' => $this->configKey.'_api_key',
+                'sort' => 0, // Sort extensions in group
+                'value' => '',
+                'detail' => $this->pathPlugin.'::lang.admin.api_key',
+            ],
+            [
+                'group'  => $this->configGroup,
+                'code' => $this->configKey.self::CONFIG_PREFIX,
+                'key' => $this->configKey.'_environment',
+                'sort' => 0, // Sort extensions in group
+                'value' => 'integration',
+                'detail' => $this->pathPlugin.'::'. $this->configKey . '.environment',
+            ],
+            // Payment status
+            [
+                'group'  => $this->configGroup,
+                'code' => $this->configKey.self::CONFIG_PREFIX,
+                'key' => $this->configKey.'_order_status_success',
+                'sort' => 0, // Sort extensions in group
+                'value' => self::ORDER_STATUS_PROCESSING,
+                'detail' => $this->pathPlugin.'::lang.admin.order_status_success',
+            ],
+            [
+                'group'  => $this->configGroup,
+                'code' => $this->configKey.self::CONFIG_PREFIX,
+                'key' => $this->configKey.'_order_status_failed',
+                'sort' => 0, // Sort extensions in group
+                'value' => self::ORDER_STATUS_FAILED,
+                'detail' => $this->pathPlugin.'::lang.admin.order_status_failed',
+            ],
+            [
+                'group'  => $this->configGroup,
+                'code' => $this->configKey.self::CONFIG_PREFIX,
+                'key' => $this->configKey.'_payment_status',
+                'sort' => 0, // Sort extensions in group
+                'value' => self::PAYMENT_STATUS,
+                'detail' => $this->pathPlugin.'::lang.admin.payment_status',
+            ],
+        ];
     }
 }
