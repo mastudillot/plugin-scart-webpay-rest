@@ -8,5 +8,5 @@
     "configCode": "Payment",
     "configKey": "WebpayPlus",
     "version": "1.0.0",
-    "scartVersion": []
+    "scartVersion": "8.1"
 }
