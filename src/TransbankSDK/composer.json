@@ -4,5 +4,5 @@
         "php": "^7.4|^8.0"
     },
     "description": "Transbank S-Cart Plugin",
-    "name": "transbank/scart-plugin"
+    "name": "smart-softech/transbank-scart-plugin"
 }
