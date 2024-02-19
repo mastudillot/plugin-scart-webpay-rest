@@ -11,7 +11,7 @@ echo "tag: $TAG"
 OUTPUT_DIR="output"
 SDK_DIR="src/TransbankSDK"
 CONFIG_PLUGIN_FILE="config.json"
-OUTPUT_PLUGIN_DIR="WebpayPlus"
+OUTPUT_PLUGIN_DIR="Transbank"
 PLUGIN_FILE="plugin-scart-webpay-rest-$TAG.zip"
 
 # Install plugin dependencies
