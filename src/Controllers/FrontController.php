@@ -25,7 +25,7 @@ class FrontController extends RootFrontController
     {
 
         if (empty(session('dataPayment'))) {
-            return redirect(sc_route('cart'))->with(["error" => 'No session']);
+            return redirect(sc_route('checkout'))->with(["error" => 'No session']);
         }
         $dataPayment = session('dataPayment');
         $buyOrder = $dataPayment['reference_id'];
@@ -49,7 +49,7 @@ class FrontController extends RootFrontController
                 'response' => $response,
             ]);
         } catch (Throwable $e) {
-            return redirect(sc_route('cart'))->with(["error" => $e->getMessage()]);
+            return redirect(sc_route('checkout'))->with(["error" => $e->getMessage()]);
         }
     }
 
@@ -103,7 +103,7 @@ class FrontController extends RootFrontController
 
             return redirect()->route('webpayplus.index')->with('dataPayment', $dataPayment);
         } else {
-            return redirect(sc_route('cart'))->with(['error' => 'Data not correct']);
+            return redirect(sc_route('checkout'))->with(['error' => 'Data not correct']);
         }
     }
 
@@ -114,7 +114,7 @@ class FrontController extends RootFrontController
         // Se verifica el resultado de la pasarela de pago.
         $webpayError = $this->checkWebpayResult($request);
         if ($webpayError) {
-            return redirect(sc_route('cart'))->with(['error' => $webpayError]);
+            return redirect(sc_route('checkout'))->with(['error' => $webpayError]);
         }
 
         /* Flujo finalizado correctamente, puede ser aprobado o rechazado */
@@ -130,7 +130,6 @@ class FrontController extends RootFrontController
 
         $webpayTransaction->transbank_response = json_encode($response);
         $webpayTransaction->transbank_status = $response->getStatus();
-        $webpayTransaction->transbank_product = WebpayTransaction::PRODUCT_WEBPAY_PLUS;
         $webpayTransaction->save();
 
         if ($response->isApproved()) {
@@ -151,7 +150,7 @@ class FrontController extends RootFrontController
             return (new ShopCartController)->completeOrder();
         }
 
-        return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin . '::lang.errors.payment_rejected')]);
+        return redirect(sc_route('checkout'))->with(['error' => trans($this->pathPlugin . '::lang.errors.payment_rejected')]);
     }
 
     private function checkWebpayResult($request)
