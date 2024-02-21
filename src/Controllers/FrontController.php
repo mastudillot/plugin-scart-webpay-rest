@@ -42,6 +42,7 @@ class FrontController extends RootFrontController
             $webpayTransaction->session_id = $sessionId;
             $webpayTransaction->status = WebpayTransaction::STATUS_INITIALIZED;
             $webpayTransaction->transbank_environment = sc_config(PluginConstants::$configEnvironmentKey);
+            $webpayTransaction->transbank_product = WebpayTransaction::PRODUCT_WEBPAY_PLUS;
             $webpayTransaction->save();
 
             return view($this->pathPlugin . '::toPay')->with([
