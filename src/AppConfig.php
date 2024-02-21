@@ -41,7 +41,7 @@ class AppConfig extends ConfigDefault
             return ['error' => 1, 'msg' =>  sc_language_render('admin.plugin.plugin_exist')];
         }
 
-        //Insert plugin to config
+        //Insert plugin config
         $configData = $this->getInitialConfigData();
         $insertFailed = AdminConfig::insert(
             $configData
