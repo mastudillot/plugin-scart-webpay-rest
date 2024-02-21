@@ -4,7 +4,6 @@ namespace App\Plugins\Payment\Transbank\Controllers;
 
 use Throwable;
 use Illuminate\Http\Request;
-use App\Plugins\Payment\Transbank\AppConfig;
 use App\Plugins\Payment\Transbank\TransbankSDK\Webpay;
 use App\Plugins\Payment\Transbank\Models\WebpayTransaction;
 use App\Plugins\Payment\Transbank\Utils\PluginConstants;
@@ -14,14 +13,12 @@ use SCart\Core\Front\Models\ShopOrder;
 
 class FrontController extends RootFrontController
 {
-    public $plugin;
     private $pathPlugin;
 
     public function __construct()
     {
         parent::__construct();
-        $this->plugin = new AppConfig;
-        $this->pathPlugin = $this->plugin->pathPlugin;
+        $this->pathPlugin = PluginConstants::$pluginPath;
     }
 
     public function index() {
@@ -46,7 +43,7 @@ class FrontController extends RootFrontController
             $webpayTransaction->transbank_environment = sc_config(PluginConstants::$configEnvironmentKey);
             $webpayTransaction->save();
 
-            return view($this->plugin->pathPlugin.'::toPay')->with([
+            return view($this->pathPlugin . '::toPay')->with([
                 'response' => $response,
             ]);
 
