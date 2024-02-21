@@ -198,36 +198,4 @@ class FrontController extends RootFrontController
 
         return $result;
     }
-
-    private function getHistoryContent($token, $commitResponse) {
-        switch ($commitResponse['paymentTypeCode']) {
-            case 'VD':
-                $cardType = trans($this->pathPlugin.'::lang.payment.debit');
-                break;
-            case 'VP':
-                $cardType = trans($this->pathPlugin.'::lang.payment.prepaid');
-                break;      
-            default:
-                $cardType = trans($this->pathPlugin.'::lang.payment.credit');
-
-                if($commitResponse['paymentTypeCode'] != 'VN') {
-                    $HistoryContentScrap = '<b>'.trans($this->pathPlugin.'::lang.payment.installments_number').':</b> '.$commitResponse['installmentsNumber'].'<br>'.
-                    '<b>'.trans($this->pathPlugin.'::lang.payment.installments_amount').':</b> '.$commitResponse['installmentsAmount'].'<br>';
-                }
-                break;
-        }
-
-        $HistoryContent = '<b>Token:</b> '.$token.'<br>'.
-        '<b>'.trans($this->pathPlugin.'::lang.payment.payment_type').':</b> '.$cardType.'<br>'.
-        '<b>'.trans($this->pathPlugin.'::lang.payment.last4digits').':</b> '.$commitResponse['cardNumber'].'<br>'.
-        // '<b>'.trans($this->pathPlugin.'::lang.accounting_date').':</b> '.$commitResponse['accountingDate'].'<br>'.
-        '<b>'.trans($this->pathPlugin.'::lang.payment.transaction_date').':</b> '.$commitResponse['transactionDate'].'<br>'.
-        '<b>'.trans($this->pathPlugin.'::lang.payment.authorization_code').':</b> '.$commitResponse['authorizationCode'].'<br>';
-
-        if(isset($HistoryContentScrap)) {
-            return $HistoryContent.$HistoryContentScrap;
-        }
-
-        return $HistoryContent;
-    }
 }
