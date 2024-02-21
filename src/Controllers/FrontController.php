@@ -132,8 +132,10 @@ class FrontController extends RootFrontController
         $webpayTransaction->transbank_product = WebpayTransaction::PRODUCT_WEBPAY_PLUS;
         $webpayTransaction->save();
 
-        if($response->isApproved()) {
-            ShopOrder::find($orderId)->update([
+        if ($response->isApproved()) {
+            $order = ShopOrder::find($orderId);
+
+            $order->update([
                 'transaction' => $token_ws,
                 'status' => sc_config(PluginConstants::$configOrderStatusSuccessKey),
                 'payment_status' => sc_config(PluginConstants::$configPaymentStatusKey)
@@ -144,7 +146,7 @@ class FrontController extends RootFrontController
                 'content' => trans($this->pathPlugin.'::lang.payment.paid_with').'Webpay Plus',
                 'order_status_id' => sc_config(PluginConstants::$configOrderStatusSuccessKey),
             ];
-            (new ShopOrder)->addOrderHistory($dataHistory);
+            $order->addOrderHistory($dataHistory);
             return (new ShopCartController)->completeOrder();
         }
         
