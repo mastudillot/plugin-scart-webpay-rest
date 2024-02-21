@@ -149,9 +149,8 @@ class FrontController extends RootFrontController
             (new ShopOrder)->addOrderHistory($dataHistory);
             return (new ShopCartController)->completeOrder();
         }
-        else {
-            return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.payment_rejected')]);
-        }
+        
+        return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.payment_rejected')]);
     }
 
     private function checkWebpayResult($request) {
