@@ -7,7 +7,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use DateTime;
 use DateTimeZone;
 use Transbank\Webpay\Options;
-use Transbank\Webpay\Transbank\Transaction;
+use Transbank\Webpay\WebpayPlus\Transaction;
 
 class Webpay
 {
