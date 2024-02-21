@@ -21,9 +21,10 @@ class FrontController extends RootFrontController
         $this->pathPlugin = PluginConstants::$pluginPath;
     }
 
-    public function index() {
+    public function index()
+    {
 
-        if(empty(session('dataPayment'))) {
+        if (empty(session('dataPayment'))) {
             return redirect(sc_route('cart'))->with(["error" => 'No session']);
         }
         $dataPayment = session('dataPayment');
@@ -46,18 +47,18 @@ class FrontController extends RootFrontController
             return view($this->pathPlugin . '::toPay')->with([
                 'response' => $response,
             ]);
-
-        }catch(Throwable $e) {
+        } catch (Throwable $e) {
             return redirect(sc_route('cart'))->with(["error" => $e->getMessage()]);
         }
     }
 
-    public function processOrder(){
-        $dataOrder = session('dataOrder')?? [];
+    public function processOrder()
+    {
+        $dataOrder = session('dataOrder') ?? [];
         $currency = $dataOrder['currency'] ?? '';
         $orderID = session('orderID') ?? 0;
-        $arrCartDetail = session('arrCartDetail')?? null;
-    
+        $arrCartDetail = session('arrCartDetail') ?? null;
+
         if ($orderID && $dataOrder && $arrCartDetail) {
             $dataTotal = [
                 'item_total' => [
@@ -77,7 +78,7 @@ class FrontController extends RootFrontController
                     'value' => abs((int)$dataOrder['discount']),
                 ],
             ];
-    
+
             foreach ($arrCartDetail as $item) {
                 $dataItems[] = [
                     'name' => $item['name'],
@@ -111,19 +112,18 @@ class FrontController extends RootFrontController
 
         // Se verifica el resultado de la pasarela de pago.
         $webpayError = $this->checkWebpayResult($request);
-        if($webpayError) {
+        if ($webpayError) {
             return redirect(sc_route('cart'))->with(['error' => $webpayError]);
         }
-        
+
         /* Flujo finalizado correctamente, puede ser aprobado o rechazado */
         $response = (new Webpay)->commit($token_ws);
 
         $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $token_ws)->firstOrFail();
 
-        if($response->isApproved()) {
+        if ($response->isApproved()) {
             $webpayTransaction->status = WebpayTransaction::STATUS_APPROVED;
-        }
-        else {
+        } else {
             $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
         }
 
@@ -143,17 +143,18 @@ class FrontController extends RootFrontController
             //Add history
             $dataHistory = [
                 'order_id' => $orderId,
-                'content' => trans($this->pathPlugin.'::lang.payment.paid_with').'Webpay Plus',
+                'content' => trans($this->pathPlugin . '::lang.payment.paid_with') . 'Webpay Plus',
                 'order_status_id' => sc_config(PluginConstants::$configOrderStatusSuccessKey),
             ];
             $order->addOrderHistory($dataHistory);
             return (new ShopCartController)->completeOrder();
         }
-        
-        return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin.'::lang.errors.payment_rejected')]);
+
+        return redirect(sc_route('cart'))->with(['error' => trans($this->pathPlugin . '::lang.errors.payment_rejected')]);
     }
 
-    private function checkWebpayResult($request) {
+    private function checkWebpayResult($request)
+    {
         $token_ws = $request->get('token_ws');
         $tbk_id_session = $request->get('TBK_ID_SESION');
         $tbk_orden_compra = $request->get('TBK_ORDEN_COMPRA');
@@ -167,21 +168,19 @@ class FrontController extends RootFrontController
                 $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $tbk_token)->firstOrFail();
                 $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
                 $webpayTransaction->save();
-                $result = trans($this->pathPlugin.'::lang.errors.payment_timeout');
-            }
-            else {
+                $result = trans($this->pathPlugin . '::lang.errors.payment_timeout');
+            } else {
                 /* Pago abortado */
                 $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')
-                ->where('order_id', $tbk_orden_compra)
-                ->where('session_id', $tbk_id_session)
-                ->firstOrFail();
+                    ->where('order_id', $tbk_orden_compra)
+                    ->where('session_id', $tbk_id_session)
+                    ->firstOrFail();
 
                 $webpayTransaction->status = WebpayTransaction::STATUS_ABORTED_BY_USER;
                 $webpayTransaction->save();
-                $result = trans($this->pathPlugin.'::lang.errors.payment_aborted');
+                $result = trans($this->pathPlugin . '::lang.errors.payment_aborted');
             }
-        }
-        else if (!is_null($tbk_token)) {
+        } elseif (!is_null($tbk_token)) {
             /*
             Error en el Pago:
             Si ocurre un error en el formulario de pago, y hace click en el link de "volver al sitio"
@@ -192,7 +191,7 @@ class FrontController extends RootFrontController
             $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $token_ws)->firstOrFail();
             $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
             $webpayTransaction->save();
-            $result = trans($this->pathPlugin.'::lang.errors.payment_error');
+            $result = trans($this->pathPlugin . '::lang.errors.payment_error');
         }
 
         return $result;
