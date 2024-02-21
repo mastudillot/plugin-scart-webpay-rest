@@ -21,8 +21,8 @@ class AppConfig extends ConfigDefault
 
     public function __construct()
     {
-    	$this->configGroup = PluginConstants::$pluginConfigGroup;
-    	$this->configCode = PluginConstants::$pluginConfigCode;
+        $this->configGroup = PluginConstants::$pluginConfigGroup;
+        $this->configCode = PluginConstants::$pluginConfigCode;
         $this->configKey = PluginConstants::$pluginConfigKey;
         $this->scartVersion = PluginConstants::$pluginScartVersion;
         $this->pathPlugin = PluginConstants::$pluginPath;
