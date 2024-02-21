@@ -33,7 +33,7 @@ class PluginConstants
         self::$pluginVersion = self::getConfigFromFile('version');
         self::$pluginAuthor = self::getConfigFromFile('auth');
         self::$pluginUrl = self::getConfigFromFile('link');
-        self::$pluginPath = self::$pluginConfigGroup . '/' . self::$pluginConfigGroup . '/' . self::$pluginConfigKey;
+        self::$pluginPath = self::$pluginConfigGroup . '/' . self::$pluginConfigCode . '/' . self::$pluginConfigKey;
         self::$configPrefix = '_config';
         self::$configCode = self::$pluginConfigKey . self::$configPrefix;
         self::$configCommerceCodeKey = self::$pluginConfigKey . '_commerce_code';
