@@ -33,6 +33,15 @@ return [
         '2_installment_sale' => '2 cuotas sin interés',
         'n_installment_sale' => 'N cuotas sin interés',
         'prepaid_sale' => 'Venta Prepago',
+        'status' => [
+            'initialized' => 'Inicializada',
+            'authorized' => 'Autorizada',
+            'reversed' => 'Reversada',
+            'failed' => 'Fallida',
+            'nullified' => 'Anulada',
+            'partially_nullified' => 'Parcialmente anulada',
+            'captured' => 'Capturada',
+        ],
     ],
     'admin' => [
         'title' => 'Panel de administración',

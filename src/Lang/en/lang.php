@@ -33,6 +33,15 @@ return [
         '2_installment_sale' => '2 installments without interest',
         'n_installment_sale' => 'N installments without interest',
         'prepaid_sale' => 'Prepaid Sale',
+        'status' => [
+            'initialized' => 'Initialized',
+            'authorized' => 'Authorized',
+            'reversed' => 'Reversed',
+            'failed' => 'Failed',
+            'nullified' => 'Nullified',
+            'partially_nullified' => 'Partially nullified',
+            'captured' => 'Captured',
+        ],
     ],
     'admin' => [
         'title' => 'Administration panel',
