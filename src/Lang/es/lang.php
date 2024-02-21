@@ -26,6 +26,13 @@ return [
         'debit' => 'Tarjeta de débito',
         'prepaid' => 'Tarjeta prepago',
         'paid_with' => 'Pagado con ',
+        'debit_sale' => 'Venta Débito',
+        'normal_sale' => 'Venta Normal',
+        'installment_sale' => 'Venta en cuotas',
+        '3_installment_sale' => '3 cuotas sin interés',
+        '2_installment_sale' => '2 cuotas sin interés',
+        'n_installment_sale' => 'N cuotas sin interés',
+        'prepaid_sale' => 'Venta Prepago',
     ],
     'admin' => [
         'title' => 'Panel de administración',

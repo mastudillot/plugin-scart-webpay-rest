@@ -26,6 +26,13 @@ return [
         'debit' => 'Debit card',
         'prepaid' => 'Prepaid card',
         'paid_with' => 'Paid with ',
+        'debit_sale' => 'Debit Sale',
+        'normal_sale' => 'Normal Sale',
+        'installment_sale' => 'Installment Sale',
+        '3_installment_sale' => '3 installments without interest',
+        '2_installment_sale' => '2 installments without interest',
+        'n_installment_sale' => 'N installments without interest',
+        'prepaid_sale' => 'Prepaid Sale',
     ],
     'admin' => [
         'title' => 'Administration panel',
