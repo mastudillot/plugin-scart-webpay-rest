@@ -4,6 +4,7 @@ namespace App\Plugins\Payment\Transbank\TransbankSDK;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use App\Plugins\Payment\Transbank\Utils\PluginConstants;
 use DateTime;
 use DateTimeZone;
 use Transbank\Webpay\Options;
@@ -21,12 +22,12 @@ class Webpay
      */
     public function __construct()
     {
-        $environment = sc_config('WebpayPlus_environment');
+        $environment = sc_config(PluginConstants::$configEnvironmentKey);
         $options = Transaction::getDefaultOptions();
 
         if ($environment !== 'integration') {
-            $commerceCode = sc_config('WebpayPlus_commerce_code');
-            $apiKey = sc_config('WebpayPlus_api_key');
+            $commerceCode = sc_config(PluginConstants::$configCommerceCodeKey);
+            $apiKey = sc_config(PluginConstants::$configApiKey);
             $options = Options::forProduction($commerceCode, $apiKey);
         }
 
@@ -52,7 +53,7 @@ class Webpay
         return $this->transaction->status($token);
     }
 
-    public function getFormattedResponse($response) 
+    public function getFormattedResponse($response)
     {
         $vci = $response->getVci();
         $amount = $response->getAmount();

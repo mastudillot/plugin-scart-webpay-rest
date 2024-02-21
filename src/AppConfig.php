@@ -9,6 +9,7 @@ namespace App\Plugins\Payment\Transbank;
 use App\Plugins\Payment\Transbank\Models\PluginModel;
 use SCart\Core\Admin\Models\AdminConfig;
 use App\Plugins\ConfigDefault;
+use App\Plugins\Payment\Transbank\Utils\PluginConstants;
 
 class AppConfig extends ConfigDefault
 {
@@ -20,23 +21,16 @@ class AppConfig extends ConfigDefault
 
     public function __construct()
     {
-        //Read config from config.json
-        $config = file_get_contents(__DIR__.'/config.json');
-        $config = json_decode($config, true);
-    	$this->configGroup = $config['configGroup'];
-    	$this->configCode = $config['configCode'];
-        $this->configKey = $config['configKey'];
-        $this->scartVersion = $config['scartVersion'];
-        //Path
-        $this->pathPlugin = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
-        //Language
+    	$this->configGroup = PluginConstants::$pluginConfigGroup;
+    	$this->configCode = PluginConstants::$pluginConfigCode;
+        $this->configKey = PluginConstants::$pluginConfigKey;
+        $this->scartVersion = PluginConstants::$pluginScartVersion;
+        $this->pathPlugin = PluginConstants::$pluginPath;
         $this->title = trans($this->pathPlugin.'::lang.title');
-        //Image logo or thumb
-        $this->image = $this->pathPlugin.'/'.$config['image'];
-        //
-        $this->version = $config['version'];
-        $this->auth = $config['auth'];
-        $this->link = $config['link'];
+        $this->image = PluginConstants::$pluginImage;
+        $this->version = PluginConstants::$pluginVersion;
+        $this->auth = PluginConstants::$pluginAuthor;
+        $this->link = PluginConstants::$pluginUrl;
     }
 
     public function install()

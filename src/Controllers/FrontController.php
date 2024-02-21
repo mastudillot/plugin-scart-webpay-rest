@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Plugins\Payment\Transbank\AppConfig;
 use App\Plugins\Payment\Transbank\TransbankSDK\Webpay;
 use App\Plugins\Payment\Transbank\Models\WebpayTransaction;
+use App\Plugins\Payment\Transbank\Utils\PluginConstants;
 use SCart\Core\Front\Controllers\RootFrontController;
 use SCart\Core\Front\Controllers\ShopCartController;
 use SCart\Core\Front\Models\ShopOrder;
@@ -42,7 +43,7 @@ class FrontController extends RootFrontController
             $webpayTransaction->token = $response->getToken();
             $webpayTransaction->session_id = $sessionId;
             $webpayTransaction->status = WebpayTransaction::STATUS_INITIALIZED;
-            $webpayTransaction->transbank_environment = sc_config('WebpayPlus_environment');
+            $webpayTransaction->transbank_environment = sc_config(PluginConstants::$configEnvironmentKey);
             $webpayTransaction->save();
 
             return view($this->plugin->pathPlugin.'::toPay')->with([
@@ -108,7 +109,7 @@ class FrontController extends RootFrontController
     }
 
     public function finish($orderId, Request $request)
-    {      
+    {
         $token_ws = $request->get('token_ws');
 
         // Se verifica el resultado de la pasarela de pago.
@@ -136,15 +137,15 @@ class FrontController extends RootFrontController
 
         if($response->isApproved()) {
             ShopOrder::find($orderId)->update([
-                'transaction' => $token_ws, 
-                'status' => sc_config('WebpayPlus_order_status_success'),
-                'payment_status' => sc_config('WebpayPlus_payment_status')
+                'transaction' => $token_ws,
+                'status' => sc_config(PluginConstants::$configOrderStatusSuccessKey),
+                'payment_status' => sc_config(PluginConstants::$configPaymentStatusKey)
             ]);
             //Add history
             $dataHistory = [
                 'order_id' => $orderId,
                 'content' => trans($this->pathPlugin.'::lang.payment.paid_with').'Webpay Plus',
-                'order_status_id' => sc_config('WebpayPlus_order_status_success'),
+                'order_status_id' => sc_config(PluginConstants::$configOrderStatusSuccessKey),
             ];
             (new ShopOrder)->addOrderHistory($dataHistory);
             return (new ShopCartController)->completeOrder();
