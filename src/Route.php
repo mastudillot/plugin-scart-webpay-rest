@@ -3,7 +3,6 @@
  * Route front
  */
 
-use App\Http\Middleware\VerifyCsrfToken;
 
 if(sc_config('Transbank')) {
 Route::group(
@@ -18,7 +17,6 @@ Route::group(
         Route::get('process-order', 'FrontController@processOrder')
         ->name('webpayplus.process_order'); 
         Route::get('finish/{orderId}', 'FrontController@finish')
-        ->withoutMiddleware(VerifyCsrfToken::class)
         ->name('webpayplus.finish');
     }
 );
