@@ -8,7 +8,7 @@ use App\Http\Middleware\VerifyCsrfToken;
 if(sc_config('Transbank')) {
 Route::group(
     [
-        'prefix'    => 'plugin/webpayplus',
+        'prefix'    => 'plugin/transbank/webpayplus',
         'middleware' => SC_FRONT_MIDDLEWARE,
         'namespace' => 'App\Plugins\Payment\Transbank\Controllers',
     ],
