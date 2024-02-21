@@ -17,7 +17,7 @@ Route::group(
         ->name('webpayplus.index');
         Route::get('process-order', 'FrontController@processOrder')
         ->name('webpayplus.process_order'); 
-        Route::any('finish/{orderId}', 'FrontController@finish')
+        Route::get('finish/{orderId}', 'FrontController@finish')
         ->withoutMiddleware(VerifyCsrfToken::class)
         ->name('webpayplus.finish');
     }
