@@ -4,7 +4,6 @@
 namespace App\Plugins\Payment\Transbank\Admin;
 
 use DateTime;
-use DateTimeZone;
 use App\Plugins\Payment\Transbank\AppConfig;
 use App\Plugins\Payment\Transbank\Models\WebpayTransaction;
 use App\Plugins\Payment\Transbank\Utils\TransbankResponse;
