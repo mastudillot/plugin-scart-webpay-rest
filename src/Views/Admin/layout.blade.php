@@ -17,11 +17,11 @@
             {{ trans($pathPlugin.'::lang.admin.navbar.transactions') }} <em class="icon fas fa-arrow-right"></em>
           </a>
         </li>
-        <li class="{{ $view == 'healthcheck' ? 'active' : '' }}">
+        {{-- <li class="{{ $view == 'healthcheck' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'healthcheck']) }}">
             {{ trans($pathPlugin.'::lang.admin.navbar.healthcheck') }} <em class="icon fas fa-arrow-right"></em>
           </a>
-        </li>
+        </li> --}}
       </ul>
     </div>
     {{-- Navbar --}}
