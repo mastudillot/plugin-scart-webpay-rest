@@ -124,9 +124,9 @@ class TransbankResponse
      * @param int $amount The integer amount to be formatted.
      * @return string The formatted amount as a string.
      */
-    public static function getAmountFormatted(int $amount): string
+    public static function getAmountFormatted(int $amount, string $currency): string
     {
-        return '$' . number_format($amount, 0, ',', '.');
+        return sc_currency_render_symbol($amount, $currency);
     }
 
     /**
