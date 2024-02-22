@@ -63,7 +63,10 @@ class AppConfig extends ConfigDefault
             ->orWhere('code', $this->configKey.self::CONFIG_PREFIX)
             ->delete();
         if (!$process) {
-            $return = ['error' => 1, 'msg' => sc_language_render('admin.plugin.action_error', ['action' => 'Uninstall'])];
+            $return = [
+                'error' => 1,
+                'msg' => sc_language_render('admin.plugin.action_error', ['action' => 'Uninstall'])
+            ];
         }
         (new PluginModel)->uninstallExtension();
         return $return;
