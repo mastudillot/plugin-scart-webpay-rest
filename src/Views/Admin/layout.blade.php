@@ -5,7 +5,9 @@
   <div class="tbk-section d-flex flex-row">
     {{-- Navbar --}}
     <div class="tbk-nav">
-      <div class="nav-title d-flex align-items-center text-white border-bottom">Configuración</div>
+      <div class="nav-title d-flex align-items-center text-white border-bottom">
+        {{ trans($pathPlugin.'::lang.admin.navbar.title') }}
+      </div>
       <ul class="d-flex flex-column aling-content-center bg-white">
         <li class="{{ $view == 'config' ? 'active' : '' }}">
           <a href="{{ sc_route_admin('admin_webpayplus.index', ['option' => 'config']) }}">
