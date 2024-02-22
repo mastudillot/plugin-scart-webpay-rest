@@ -55,6 +55,7 @@ return [
         'production_mode' => 'Production',
         'save_button' => 'Save',
         'navbar' => [
+            'title' => 'Configuration',
             'transactions' => 'Transactions',
             'healthcheck' => 'healthcheck',
         ],
