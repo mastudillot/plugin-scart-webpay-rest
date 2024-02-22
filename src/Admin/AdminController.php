@@ -227,7 +227,7 @@ class AdminController extends RootAdminController
             $tableRows[] = [
                 'id' => $row['id'],
                 'order_id' => '<a href="' . sc_route_admin('admin_order.detail', ['id' => $row['order_id'] ? $row['order_id'] : 'not-found-id']) . '">' . $row['order_id'] . '</a>',
-                'token' => '<a href="" onclick="this.innerHTML=\'' . $row['token'] . '\';return false; " title="Haz click para ver el token completo">...' . substr($row['token'], -5) . '</a>',
+                'token' => $row['token'],
                 'status' => trans($this->statusTranslatePath . $row['status']),
                 'amount' => sc_currency_render_symbol($row['amount'] ?? 0, $row['order']['currency']),
                 'transbank_status' => $row['transbank_status'] ?? '-',
