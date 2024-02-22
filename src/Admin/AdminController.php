@@ -95,9 +95,9 @@ class AdminController extends RootAdminController
             $configOptions = [
                 'isProduction' => $isProduction,
                 'commerceCode' => $commerceCode,
-                'apiKey'=> $apiKey,
-                'orderStatusSuccess'=> $orderStatusSuccess,
-                'orderStatusFailed'=> $orderStatusFailed,
+                'apiKey' => $apiKey,
+                'orderStatusSuccess' => $orderStatusSuccess,
+                'orderStatusFailed' => $orderStatusFailed,
                 'orderPaymentStatus' => $orderPaymentStatus,
             ];
 
@@ -185,6 +185,7 @@ class AdminController extends RootAdminController
         $from_to = sc_clean($request->get('from_to') ?? '');
         $end_to = sc_clean($request->get('end_to') ?? '');
         $transaction_status = sc_clean($request->get('transaction_status') ?? '');
+        $defaultOptionValue = trans($this->searchTranslatePath . 'search_transaction_status');
 
         $dataSearch = [
             'from_to'      => $from_to,
@@ -213,11 +214,23 @@ class AdminController extends RootAdminController
             $date = new DateTime($row['created_at']);
             $formattedDate = $date->format('d-m-Y H:i:s');
             $action = '-';
+            $transactionRoute = sc_route_admin(
+                'admin_webpayplus.transaction',
+                ['id' => $row['id'] ? $row['id'] : 'not-found-id']
+            );
+            $orderDetailRoute = sc_route_admin(
+                'admin_order.detail',
+                ['id' => $row['order_id'] ? $row['order_id'] : 'not-found-id']
+            );
 
-            if ($row['status'] == WebpayTransaction::STATUS_APPROVED || $row['status'] == WebpayTransaction::STATUS_FAILED) {
+            if (
+                $row['status'] == WebpayTransaction::STATUS_APPROVED ||
+                $row['status'] == WebpayTransaction::STATUS_FAILED
+            ) {
                 $action = '
-                    <a href="' . sc_route_admin('admin_webpayplus.transaction', ['id' => $row['id'] ? $row['id'] : 'not-found-id']) . '">
-                        <span title="' . trans($this->tableTranslatePath . 'actions.show') . '" type="button" class="btn btn-flat btn-sm btn-primary">
+                    <a href="' . $transactionRoute . '">
+                        <span class="btn btn-flat btn-sm btn-primary"
+                        title="' . trans($this->tableTranslatePath . 'actions.show') . '">
                             <i class="fa fa-eye"></i>
                         </span>
                     </a>
@@ -226,7 +239,7 @@ class AdminController extends RootAdminController
 
             $tableRows[] = [
                 'id' => $row['id'],
-                'order_id' => '<a href="' . sc_route_admin('admin_order.detail', ['id' => $row['order_id'] ? $row['order_id'] : 'not-found-id']) . '">' . $row['order_id'] . '</a>',
+                'order_id' => '<a href="' . $orderDetailRoute . '">' . $row['order_id'] . '</a>',
                 'token' => $row['token'],
                 'status' => trans($this->statusTranslatePath . $row['status']),
                 'amount' => sc_currency_render_symbol($row['amount'] ?? 0, $row['order']['currency']),
@@ -240,7 +253,9 @@ class AdminController extends RootAdminController
 
         $viewData['tableHeader'] = $tableHeader;
         $viewData['tableRows'] = $tableRows;
-        $viewData['pagination'] = $webpayTxData->appends(request()->except(['_token', '_pjax']))->links($this->templatePathAdmin . 'component.pagination');
+        $viewData['pagination'] = $webpayTxData->appends(request()->except(['_token', '_pjax']))
+            ->links($this->templatePathAdmin . 'component.pagination');
+
         $viewData['resultItems'] = sc_language_render(
             $this->pathPlugin . '::lang.transactions.result_items',
             [
@@ -263,7 +278,8 @@ class AdminController extends RootAdminController
                         <div class="form-group">
                             <label>' . trans($this->searchTranslatePath . 'from') . ':</label>
                             <div class="input-group">
-                                <input type="text" name="from_to" id="from_to" class="form-control input-sm date_time rounded" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" /> 
+                                <input type="text" class="form-control input-sm date_time rounded"
+                                name="from_to" id="from_to" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" />
                             </div>
                         </div>
                     </div>
@@ -271,7 +287,8 @@ class AdminController extends RootAdminController
                         <div class="form-group">
                             <label>' . trans($this->searchTranslatePath . 'to') . ':</label>
                             <div class="input-group">
-                                <input type="text" name="end_to" id="end_to" class="form-control input-sm date_time rounded" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" /> 
+                                <input type="text" class="form-control input-sm date_time rounded"
+                                name="end_to" id="end_to" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" />
                             </div>
                         </div>
                     </div>
@@ -280,12 +297,14 @@ class AdminController extends RootAdminController
                             <label>' . trans($this->searchTranslatePath . 'status') . ':</label>
                             <div class="input-group">
                                 <select class="form-control rounded-left" name="transaction_status">
-                                    <option value="">' . trans($this->searchTranslatePath . 'search_transaction_status') . '</option>
+                                    <option value="">' . $defaultOptionValue . '</option>
                                     ' . $optionStatus . '
                                 </select>
                                 <input type="hidden" name="option" value="transactions">
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary btn-flat rounded-right"><i class="fas fa-search"></i></button>
+                                    <button type="submit" class="btn btn-primary btn-flat rounded-right">
+                                        <i class="fas fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
