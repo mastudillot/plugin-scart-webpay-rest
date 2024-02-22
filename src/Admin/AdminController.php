@@ -7,6 +7,7 @@ use DateTime;
 use DateTimeZone;
 use App\Plugins\Payment\Transbank\AppConfig;
 use App\Plugins\Payment\Transbank\Models\WebpayTransaction;
+use App\Plugins\Payment\Transbank\Utils\TransbankResponse;
 use Illuminate\Http\Request;
 use SCart\Core\Admin\Models\AdminConfig;
 use SCart\Core\Admin\Controllers\RootAdminController;
@@ -93,19 +94,48 @@ class AdminController extends RootAdminController
     public function transactionDetail($id)
     {
         $transaction = WebpayTransaction::where('id', $id)->firstOrFail();
+        $ordenCurrency = $transaction->order->currency;
+        $transbankResponse = json_decode($transaction->transbank_response, true);
+        $formattedStatus = TransbankResponse::getStatus($transbankResponse['status']);
+        $formattedAmount = TransbankResponse::getAmountFormatted($transbankResponse['amount'] ?? 0, $ordenCurrency);
+        $formattedPaymentType = TransbankResponse::getPaymentType($transbankResponse['paymentTypeCode']);
+        $formattedInstallmentsAmount = '-';
+        $formattedTxDate = TransbankResponse::transactionDateToLocalDate($transbankResponse['transactionDate']);
+        $formattedBalance = '-';
+
+        if (!is_null($transbankResponse['installmentsAmount'])) {
+            $formattedInstallmentsAmount = TransbankResponse::getAmountFormatted(
+                $transbankResponse['installmentsAmount'],
+                $ordenCurrency
+            );
+        }
+
+        if (!is_null($transbankResponse['balance'])) {
+            $formattedBalance = TransbankResponse::getAmountFormatted($transbankResponse['balance'], $ordenCurrency);
+        }
+
+
+        $formattedTransaction = [
+            'id' => $transaction->id,
+            'status' => $formattedStatus,
+            'responseCode' => $transbankResponse['responseCode'],
+            'amount' => $formattedAmount,
+            'authorizationCode' => $transbankResponse['authorizationCode'],
+            'paymentType' => $formattedPaymentType,
+            'installmentsNumber' => $transbankResponse['installmentsNumber'],
+            'installmentsAmount' => $formattedInstallmentsAmount,
+            'cardNumber' => $transbankResponse['cardNumber'],
+            'transactionDate' => $formattedTxDate,
+            'balance' => $formattedBalance,
+        ];
 
         $viewData = [
             'pathPlugin' => $this->pathPlugin,
             'detailTranslatePath' => $this->detailsTranslatePath,
             'view' => $this->pathPlugin . '::Admin.transactionDetail',
             'breadcrumb' => $this->breadcrumb,
-            'transaction' => $transaction,
-            'transbankResponse' => json_decode($transaction->transbank_response, true),
+            'transaction' => $formattedTransaction,
         ];
-
-        $transactionDate = new DateTime($viewData['transbankResponse']['transactionDate'], new DateTimeZone('UTC'));
-        $transactionDate->setTimeZone(new DateTimeZone('America/Santiago'));
-        $viewData['transbankResponse']['transactionDate'] = $transactionDate->format('d-m-Y H:i:s');
 
         return view($viewData['view'])->with($viewData);
     }
