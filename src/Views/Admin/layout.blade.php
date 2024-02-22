@@ -41,6 +41,7 @@
   .tbk-nav {
     width: 12.5rem;
   }
+
   .tbk-nav .nav-title {
     background: #6B1A6B;
     border-radius: 0.75rem 0.75rem 0 0;
@@ -104,7 +105,7 @@
     font-size: 2.25rem;
     line-height: 2.5rem;
   }
-  
+
   .tbk-section {
     gap: 1rem;
     margin-top: 2.5rem;
@@ -112,11 +113,11 @@
 
   .tbk-content {
     border-radius: 0.75rem;
-    padding: 1rem!important;
+    padding: 1rem !important;
     box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
     margin-bottom: 1rem;
     background-color: #fff;
-    color: #1f2d3d!important;
+    color: #1f2d3d !important;
   }
 </style>
 @endpush
