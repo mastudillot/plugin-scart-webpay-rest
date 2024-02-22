@@ -26,17 +26,32 @@ class AdminController extends RootAdminController
     private $detailsTranslatePath;
     private $transactionStates;
     private $breadcrumb;
+    private $configEnvironmentKey;
+    private $configCommerceCodeKey;
+    private $configApiKey;
+    private $configOrderStatusSuccessKey;
+    private $configOrderStatusFailedKey;
+    private $configPaymentStatusKey;
 
     public function __construct()
     {
         parent::__construct();
         $this->pathPlugin = PluginConstants::$pluginPath;
         $this->configCode = PluginConstants::$configCode;
+
         $this->tableTranslatePath = $this->pathPlugin . '::lang.transactions.table.';
         $this->statusTranslatePath = $this->pathPlugin . '::lang.transactions.status.';
         $this->productTranslatePath = $this->pathPlugin . '::lang.transactions.product.';
         $this->searchTranslatePath = $this->pathPlugin . '::lang.transactions.search.';
         $this->detailsTranslatePath = $this->pathPlugin . '::lang.transactions.details.';
+
+        $this->configEnvironmentKey = PluginConstants::$configEnvironmentKey;
+        $this->configCommerceCodeKey = PluginConstants::$configCommerceCodeKey;
+        $this->configApiKey = PluginConstants::$configApiKey;
+        $this->configOrderStatusSuccessKey = PluginConstants::$configOrderStatusSuccessKey;
+        $this->configOrderStatusFailedKey = PluginConstants::$configOrderStatusFailedKey;
+        $this->configPaymentStatusKey = PluginConstants::$configPaymentStatusKey;
+
         $this->transactionStates = [
             WebpayTransaction::STATUS_INITIALIZED,
             WebpayTransaction::STATUS_FAILED,
@@ -69,6 +84,26 @@ class AdminController extends RootAdminController
             'paymentStatus' => ShopPaymentStatus::getIdAll(),
         ];
 
+        if ($view == 'config') {
+            $isProduction = sc_config($this->configEnvironmentKey) == 'production';
+            $commerceCode = sc_config($this->configCommerceCodeKey);
+            $apiKey = sc_config($this->configApiKey);
+            $orderStatusSuccess = sc_config($this->configOrderStatusSuccessKey);
+            $orderStatusFailed = sc_config($this->configOrderStatusFailedKey);
+            $orderPaymentStatus = sc_config($this->configPaymentStatusKey);
+
+            $configOptions = [
+                'isProduction' => $isProduction,
+                'commerceCode' => $commerceCode,
+                'apiKey'=> $apiKey,
+                'orderStatusSuccess'=> $orderStatusSuccess,
+                'orderStatusFailed'=> $orderStatusFailed,
+                'orderPaymentStatus' => $orderPaymentStatus,
+            ];
+
+            $viewData = array_merge($viewData, $configOptions);
+        }
+
         if ($view == 'transactions') {
             $viewData = $this->createTransactionTable($request, $viewData);
         }
@@ -79,14 +114,18 @@ class AdminController extends RootAdminController
     public function saveConfig(WebpayConfigRequest $request)
     {
         $requestData = $request->all();
-        AdminConfig::where('key', 'WebpayPlus_environment')->update(['value' => $requestData['environment']]);
-        AdminConfig::where('key', 'WebpayPlus_order_status_success')->update(['value' => $requestData['order-status-success']]);
-        AdminConfig::where('key', 'WebpayPlus_order_status_failed')->update(['value' => $requestData['order-status-failed']]);
-        AdminConfig::where('key', 'WebpayPlus_payment_status')->update(['value' => $requestData['payment-status']]);
+        AdminConfig::where('key', $this->configEnvironmentKey)->update(['value' => $requestData['environment']]);
+        AdminConfig::where('key', $this->configOrderStatusSuccessKey)->update(
+            ['value' => $requestData['order-status-success']]
+        );
+        AdminConfig::where('key', $this->configOrderStatusFailedKey)->update(
+            ['value' => $requestData['order-status-failed']]
+        );
+        AdminConfig::where('key', $this->configPaymentStatusKey)->update(['value' => $requestData['payment-status']]);
 
         if ($requestData['environment'] == 'production') {
-            AdminConfig::where('key', 'WebpayPlus_commerce_code')->update(['value' => $requestData['commerce-code']]);
-            AdminConfig::where('key', 'WebpayPlus_api_key')->update(['value' => $requestData['api-key']]);
+            AdminConfig::where('key', $this->configCommerceCodeKey)->update(['value' => $requestData['commerce-code']]);
+            AdminConfig::where('key', $this->configApiKey)->update(['value' => $requestData['api-key']]);
         }
 
         return redirect()->route('admin_webpayplus.index');

@@ -8,10 +8,10 @@
       {{ trans($pathPlugin.'::lang.admin.environment') }}:
     </label>
     <select name="environment" id="environment" class="tbk-form-input">
-      <option value="integration" {{ sc_config('WebpayPlus_environment')=='integration' ? 'selected' : '' }}>
+      <option value="integration" {{ !$isProduction ? 'selected' : '' }}>
         {{ trans($pathPlugin.'::lang.admin.integration_mode') }}
       </option>
-      <option value="production" {{ sc_config('WebpayPlus_environment')=='production' ? 'selected' : '' }}>
+      <option value="production" {{ $isProduction ? 'selected' : '' }}>
         {{ trans($pathPlugin.'::lang.admin.production_mode') }}
       </option>
     </select>
@@ -27,8 +27,7 @@
     </label>
     <input type="text" name="commerce-code" id="commerce-code" class="tbk-form-input"
       placeholder="597012345678"
-      value="{{ sc_config('WebpayPlus_environment') == 'production' ? sc_config('WebpayPlus_commerce_code') : ''}}" {{
-      sc_config('WebpayPlus_environment')=='integration' ? 'disabled' : '' }}>
+      value="{{ $isProduction ? $commerceCode : ''}}" {{ !$isProduction ? 'disabled' : '' }}>
   </div>
   @if ($errors->has('commerce-code'))
   <span class="tbk-form-error">
@@ -40,8 +39,7 @@
       {{ trans($pathPlugin.'::lang.admin.api_key') }}:
     </label>
     <input type="password" name="api-key" id="api-key" class="tbk-form-input"
-      value="{{ sc_config('WebpayPlus_environment') == 'production' ? sc_config('WebpayPlus_commerce_code') : ''}}" {{
-      sc_config('WebpayPlus_environment')=='integration' ? 'disabled' : '' }}>
+      value="{{ $isProduction ? $apiKey : ''}}" {{ !$isProduction ? 'disabled' : '' }}>
   </div>
   @if ($errors->has('api-key'))
   <span class="tbk-form-error">
@@ -53,8 +51,8 @@
       {{ trans($pathPlugin.'::lang.admin.order_status_success') }}:
     </label>
     <select name="order-status-success" id="order-status-success" class="tbk-form-input">
-      @for ($i = 1; $i <= count($statusOrder); $i++) <option value="{{ $i }}" {{
-        sc_config('WebpayPlus_order_status_success')==$i ? 'selected' : '' }}>
+      @for ($i = 1; $i <= count($statusOrder); $i++) <option value="{{ $i }}"
+      {{ $orderStatusSuccess == $i ? 'selected' : '' }}>
         {{ $statusOrder[$i] }}
         </option>
         @endfor
@@ -70,8 +68,8 @@
       {{ trans($pathPlugin.'::lang.admin.order_status_failed') }}:
     </label>
     <select name="order-status-failed" id="order-status-failed" class="tbk-form-input">
-      @for ($i = 1; $i <= count($statusOrder); $i++) <option value="{{ $i }}" {{
-        sc_config('WebpayPlus_order_status_failed')==$i ? 'selected' : '' }}>
+      @for ($i = 1; $i <= count($statusOrder); $i++) <option value="{{ $i }}"
+      {{ $orderStatusFailed == $i ? 'selected' : '' }}>
         {{ $statusOrder[$i] }}
         </option>
         @endfor
@@ -87,8 +85,8 @@
       {{ trans($pathPlugin.'::lang.admin.payment_status') }}:
     </label>
     <select name="payment-status" id="payment-status" class="tbk-form-input">
-      @for ($i = 1; $i <= count($paymentStatus); $i++) <option value="{{ $i }}" {{
-        sc_config('WebpayPlus_payment_status')==$i ? 'selected' : '' }}>
+      @for ($i = 1; $i <= count($paymentStatus); $i++) <option value="{{ $i }}"
+      {{ $orderPaymentStatus == $i ? 'selected' : '' }}>
         {{ $paymentStatus[$i] }}
         </option>
         @endfor
