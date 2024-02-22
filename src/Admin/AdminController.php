@@ -175,10 +175,10 @@ class AdminController extends RootAdminController
             $formattedDate = $date->format('d-m-Y H:i:s');
             $action = '-';
 
-            if($row['status'] == WebpayTransaction::STATUS_APPROVED || $row['status'] == WebpayTransaction::STATUS_FAILED) {
+            if ($row['status'] == WebpayTransaction::STATUS_APPROVED || $row['status'] == WebpayTransaction::STATUS_FAILED) {
                 $action = '
-                    <a href="'.sc_route_admin('admin_webpayplus.transaction', ['id' => $row['id'] ? $row['id'] : 'not-found-id']).'">
-                        <span title="' . trans($this->tableTranslatePath . 'actions.show'). '" type="button" class="btn btn-flat btn-sm btn-primary">
+                    <a href="' . sc_route_admin('admin_webpayplus.transaction', ['id' => $row['id'] ? $row['id'] : 'not-found-id']) . '">
+                        <span title="' . trans($this->tableTranslatePath . 'actions.show') . '" type="button" class="btn btn-flat btn-sm btn-primary">
                             <i class="fa fa-eye"></i>
                         </span>
                     </a>
@@ -187,8 +187,8 @@ class AdminController extends RootAdminController
 
             $tableRows[] = [
                 'id' => $row['id'],
-                'order_id' => '<a href="'. sc_route_admin('admin_order.detail', ['id' => $row['order_id'] ? $row['order_id'] : 'not-found-id']).'">'.$row['order_id'].'</a>',
-                'token' => '<a href="" onclick="this.innerHTML=\'' . $row['token'].'\';return false; " title="Haz click para ver el token completo">...'.substr($row['token'], -5).'</a>',
+                'order_id' => '<a href="' . sc_route_admin('admin_order.detail', ['id' => $row['order_id'] ? $row['order_id'] : 'not-found-id']) . '">' . $row['order_id'] . '</a>',
+                'token' => '<a href="" onclick="this.innerHTML=\'' . $row['token'] . '\';return false; " title="Haz click para ver el token completo">...' . substr($row['token'], -5) . '</a>',
                 'status' => trans($this->statusTranslatePath . $row['status']),
                 'amount' => sc_currency_render_symbol($row['amount'] ?? 0, $row['order']['currency']),
                 'transbank_status' => $row['transbank_status'] ?? '-',
@@ -214,8 +214,8 @@ class AdminController extends RootAdminController
         //menuSearch
         $optionStatus = '';
         foreach ($this->transactionStates as $status) {
-            $optionStatus .= '<option  '.(($transaction_status == $status) ? "selected" : "").
-                ' value="' . $status . '">'.trans($this->statusTranslatePath . $status) . '</option>';
+            $optionStatus .= '<option  ' . (($transaction_status == $status) ? "selected" : "") .
+                ' value="' . $status . '">' . trans($this->statusTranslatePath . $status) . '</option>';
         }
         $viewData['topMenuRight'][] = '
             <form action="' . sc_route_admin('admin_webpayplus.index') . '" id="button_search">
