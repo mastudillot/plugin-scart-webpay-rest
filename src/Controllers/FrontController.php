@@ -167,7 +167,10 @@ class FrontController extends RootFrontController
         if (is_null($token_ws)) {
             if (is_null($tbk_token)) {
                 /* TimeOut 10 minutos */
-                $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')->where('token', $tbk_token)->firstOrFail();
+                $webpayTransaction = WebpayTransaction::orderBy('id', 'DESC')
+                ->where('token', $tbk_token)
+                ->firstOrFail();
+                
                 $webpayTransaction->status = WebpayTransaction::STATUS_FAILED;
                 $webpayTransaction->save();
                 $result = trans($this->pathPlugin . '::lang.errors.payment_timeout');
