@@ -6,6 +6,7 @@ namespace App\Plugins\Payment\Transbank\Admin;
 use DateTime;
 use App\Plugins\Payment\Transbank\AppConfig;
 use App\Plugins\Payment\Transbank\Models\WebpayTransaction;
+use App\Plugins\Payment\Transbank\Utils\PluginConstants;
 use App\Plugins\Payment\Transbank\Utils\TransbankResponse;
 use Illuminate\Http\Request;
 use SCart\Core\Admin\Models\AdminConfig;
@@ -27,9 +28,8 @@ class AdminController extends RootAdminController
     public function __construct()
     {
         parent::__construct();
-        $this->plugin = new AppConfig;
-        $this->pathPlugin = $this->plugin->pathPlugin;
-        $this->configCode = $this->plugin->configCode;
+        $this->pathPlugin = PluginConstants::$pluginPath;
+        $this->configCode = PluginConstants::$configCode;
         $this->tableTranslatePath = $this->pathPlugin . '::lang.transactions.table.';
         $this->statusTranslatePath = $this->pathPlugin . '::lang.transactions.status.';
         $this->productTranslatePath = $this->pathPlugin . '::lang.transactions.product.';
