@@ -22,7 +22,9 @@ class AdminController extends RootAdminController
     private $tableTranslatePath;
     private $statusTranslatePath;
     private $productTranslatePath;
+    private $searchTranslatePath;
     private $detailsTranslatePath;
+    private $transactionStates;
     private $breadcrumb;
 
     public function __construct()
