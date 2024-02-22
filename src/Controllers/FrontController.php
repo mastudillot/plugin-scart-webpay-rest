@@ -150,7 +150,9 @@ class FrontController extends RootFrontController
             return (new ShopCartController)->completeOrder();
         }
 
-        return redirect(sc_route('checkout'))->with(['error' => trans($this->pathPlugin . '::lang.errors.payment_rejected')]);
+        return redirect(sc_route('checkout'))->with(
+            ['error' => trans($this->pathPlugin . '::lang.errors.payment_rejected')]
+        );
     }
 
     private function checkWebpayResult($request)
