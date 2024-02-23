@@ -2,11 +2,11 @@
 
 # Plugin Webpay Plus para e-commerce S-Cart
 
-Esta versión del plugin fue probada con el e-commerce Scart versión 6.9, para más información del la tienda visitar su [web oficial](https://s-cart.org/en)
+Esta versión del plugin fue probada con el e-commerce S-Cart versión 8.1, para más información del la tienda visitar su [web oficial](https://s-cart.org/en)
 
 ## Dependencias
 
-- [Transbank SDK Oficial](https://github.com/TransbankDevelopers/transbank-sdk-php): Se requiere la versión 2.x.
+- [Transbank SDK Oficial](https://github.com/TransbankDevelopers/transbank-sdk-php): Se requiere la versión 4.x.
 - PHP 7.4 o mayor. 
 
 ## Instalación
