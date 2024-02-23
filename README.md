@@ -13,13 +13,6 @@ Esta versión del plugin fue probada con el e-commerce Scart versión 6.9, para 
 
 Antes de instalar el plugin, es necesario configurar algunos archivos del servidor.
 
-### Cookies
-
-Para el correcto funcionamiento del plugin y con el fin de evitar perdidas de sesión en algunas respuestas de Transbank es necesario configurar lo siguiente:
-
-- Establecer `same_site` a `none` en el archivo `config/session.php` del sitio.
-- Añadir la variable `SESSION_SECURE_COOKIE=true` al archivo `.env`.
-
 ### Instalación del plugin
 
 Para realizar la instalación, se debe subir el plugin desde la opción `Import plugin` desde la sección de `Payment` en `Extensions->Plugins`.
