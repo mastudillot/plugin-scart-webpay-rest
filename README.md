@@ -11,8 +11,6 @@ Esta versión del plugin fue probada con el e-commerce Scart versión 6.9, para 
 
 ## Instalación
 
-Antes de instalar el plugin, es necesario configurar algunos archivos del servidor.
-
 ### Instalación del plugin
 
 Para realizar la instalación, se debe subir el plugin desde la opción `Import plugin` desde la sección de `Payment` en `Extensions->Plugins`.
