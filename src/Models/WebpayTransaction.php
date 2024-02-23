@@ -17,13 +17,13 @@ class WebpayTransaction extends Model
 
     const PRODUCT_WEBPAY_PLUS = 'webpay_plus';
     const PRODUCT_WEBPAY_ONECLICK = 'webpay_oneclick';
-    
+
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = SC_DB_PREFIX.'webpay_transactions';
+    protected $table = SC_DB_PREFIX . 'webpay_transactions';
 
     /**
      * Get list of webpay transactions.
@@ -62,7 +62,8 @@ class WebpayTransaction extends Model
         return $orderList;
     }
 
-    public function order() {
+    public function order()
+    {
         return $this->belongsTo(ShopOrder::class);
     }
 }
