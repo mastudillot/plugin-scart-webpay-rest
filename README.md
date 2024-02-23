@@ -21,11 +21,12 @@ Se debe seleccionar el archivo y pulsar el botón import.
 
 ### Generar una nueva versión
 
-Para generar una nueva versión se debe crear una `variable de entorno` con la versión a generar y luego ejecutar el archivo `package.sh`.
+Para generar una nueva versión, se debe generar un PR con el título "Release X.Y.Z", con los valores que correspondan para `X`, `Y` y `Z`, se debe seguir el estándar semver para determinar si se incrementa el valor de `X` (si hay cambios no retrocompatibles), `Y` (para mejoras retrocompatibles) o `Z` (si sólo hubo correcciones a bugs).
 
-```bash
-export TAG="1.0.0"
-./package.sh
-```
+Los pasos son los siguientes:
 
-
+1. Se debe crear una rama release, con destino a la rama `main`.
+2. Se debe modificar el archivo `config.json` con la versión a liberar.
+3. Se debe modificar el archivo `CHANGELOG.md` con los cambios que incluye la versión.
+4. Una vez aprobado el PR se debe mezclar inmediatamente a la rama `main` y generar un nuevo release.
+5. En la descripción del release se deben incluir los cambios más relevantes de la versión.
